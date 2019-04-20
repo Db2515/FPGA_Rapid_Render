@@ -202,9 +202,15 @@ proc create_root_design { parentCell } {
 
   # Create instance: rect_renderer_0, and set properties
   set rect_renderer_0 [ create_bd_cell -type ip -vlnv user.org:XUP:rect_renderer:1.0 rect_renderer_0 ]
+  set_property -dict [ list \
+   CONFIG.SHAPE_ID {2} \
+ ] $rect_renderer_0
 
   # Create instance: rect_renderer_1, and set properties
   set rect_renderer_1 [ create_bd_cell -type ip -vlnv user.org:XUP:rect_renderer:1.0 rect_renderer_1 ]
+  set_property -dict [ list \
+   CONFIG.SHAPE_ID {3} \
+ ] $rect_renderer_1
 
   # Create instance: simple_output_0, and set properties
   set simple_output_0 [ create_bd_cell -type ip -vlnv user.org:XUP:simple_output:1.0 simple_output_0 ]
@@ -239,7 +245,6 @@ proc create_root_design { parentCell } {
   # Restore current instance
   current_bd_instance $oldCurInst
 
-  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -251,4 +256,6 @@ proc create_root_design { parentCell } {
 
 create_root_design ""
 
+
+common::send_msg_id "BD_TCL-1000" "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
