@@ -54,14 +54,14 @@ module checkerboard_input(input wire clk,
         end
         else if (program == 0)
         begin
-            if(y < 2160)
+            if(y < 2159)
             begin
                 y = y + 1;
             end
             else
             begin
                 y = 0;
-                if (x < 1080)
+                if (x < 1079)
                 begin
                     x = x + 1;
                 end
