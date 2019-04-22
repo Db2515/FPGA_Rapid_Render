@@ -124,7 +124,6 @@ set bCheckIPsPassed 1
 set bCheckIPs 1
 if { $bCheckIPs == 1 } {
    set list_check_ips "\ 
-user.org:XUP:checkerboard_input:1.0\
 user.org:XUP:rect_renderer:1.0\
 user.org:XUP:simple_output:1.0\
 "
@@ -193,12 +192,15 @@ proc create_root_design { parentCell } {
 
   # Create ports
   set clk [ create_bd_port -dir I -type clk clk ]
+  set color_in [ create_bd_port -dir I -from 31 -to 0 color_in ]
   set color_out [ create_bd_port -dir O -from 31 -to 0 color_out ]
+  set program_in [ create_bd_port -dir I -from 5 -to 0 program_in ]
+  set shape_height [ create_bd_port -dir I -from 11 -to 0 shape_height ]
+  set shape_width [ create_bd_port -dir I -from 10 -to 0 shape_width ]
+  set x [ create_bd_port -dir I -from 10 -to 0 x ]
   set x_out [ create_bd_port -dir O -from 10 -to 0 x_out ]
+  set y [ create_bd_port -dir I -from 11 -to 0 y ]
   set y_out [ create_bd_port -dir O -from 11 -to 0 y_out ]
-
-  # Create instance: checkerboard_input_0, and set properties
-  set checkerboard_input_0 [ create_bd_cell -type ip -vlnv user.org:XUP:checkerboard_input:1.0 checkerboard_input_0 ]
 
   # Create instance: rect_renderer_0, and set properties
   set rect_renderer_0 [ create_bd_cell -type ip -vlnv user.org:XUP:rect_renderer:1.0 rect_renderer_0 ]
@@ -216,13 +218,9 @@ proc create_root_design { parentCell } {
   set simple_output_0 [ create_bd_cell -type ip -vlnv user.org:XUP:simple_output:1.0 simple_output_0 ]
 
   # Create port connections
-  connect_bd_net -net checkerboard_input_0_color_out [get_bd_pins checkerboard_input_0/color_out] [get_bd_pins rect_renderer_0/color_in]
-  connect_bd_net -net checkerboard_input_0_program_out [get_bd_pins checkerboard_input_0/program_out] [get_bd_pins rect_renderer_0/program_in]
-  connect_bd_net -net checkerboard_input_0_shape_height_out [get_bd_pins checkerboard_input_0/shape_height_out] [get_bd_pins rect_renderer_0/shape_height]
-  connect_bd_net -net checkerboard_input_0_shape_width_out [get_bd_pins checkerboard_input_0/shape_width_out] [get_bd_pins rect_renderer_0/shape_width]
-  connect_bd_net -net checkerboard_input_0_x_out [get_bd_pins checkerboard_input_0/x_out] [get_bd_pins rect_renderer_0/x]
-  connect_bd_net -net checkerboard_input_0_y_out [get_bd_pins checkerboard_input_0/y_out] [get_bd_pins rect_renderer_0/y]
-  connect_bd_net -net clk_0_1 [get_bd_ports clk] [get_bd_pins checkerboard_input_0/clk] [get_bd_pins rect_renderer_0/clk] [get_bd_pins rect_renderer_1/clk]
+  connect_bd_net -net clk_0_1 [get_bd_ports clk] [get_bd_pins rect_renderer_0/clk] [get_bd_pins rect_renderer_1/clk]
+  connect_bd_net -net color_in_0_1 [get_bd_ports color_in] [get_bd_pins rect_renderer_0/color_in]
+  connect_bd_net -net program_in_0_1 [get_bd_ports program_in] [get_bd_pins rect_renderer_0/program_in]
   connect_bd_net -net rect_renderer_0_color_out [get_bd_pins rect_renderer_0/color_out] [get_bd_pins rect_renderer_1/color_in]
   connect_bd_net -net rect_renderer_0_program_out [get_bd_pins rect_renderer_0/program_out] [get_bd_pins rect_renderer_1/program_in]
   connect_bd_net -net rect_renderer_0_shape_height_out [get_bd_pins rect_renderer_0/shape_height_out] [get_bd_pins rect_renderer_1/shape_height]
@@ -235,9 +233,13 @@ proc create_root_design { parentCell } {
   connect_bd_net -net rect_renderer_1_shape_width_out [get_bd_pins rect_renderer_1/shape_width_out] [get_bd_pins simple_output_0/shape_width]
   connect_bd_net -net rect_renderer_1_x_out [get_bd_pins rect_renderer_1/x_out] [get_bd_pins simple_output_0/x]
   connect_bd_net -net rect_renderer_1_y_out [get_bd_pins rect_renderer_1/y_out] [get_bd_pins simple_output_0/y]
+  connect_bd_net -net shape_height_0_1 [get_bd_ports shape_height] [get_bd_pins rect_renderer_0/shape_height]
+  connect_bd_net -net shape_width_0_1 [get_bd_ports shape_width] [get_bd_pins rect_renderer_0/shape_width]
   connect_bd_net -net simple_output_0_color_out [get_bd_ports color_out] [get_bd_pins simple_output_0/color_out]
   connect_bd_net -net simple_output_0_x_out [get_bd_ports x_out] [get_bd_pins simple_output_0/x_out]
   connect_bd_net -net simple_output_0_y_out [get_bd_ports y_out] [get_bd_pins simple_output_0/y_out]
+  connect_bd_net -net x_0_1 [get_bd_ports x] [get_bd_pins rect_renderer_0/x]
+  connect_bd_net -net y_0_1 [get_bd_ports y] [get_bd_pins rect_renderer_0/y]
 
   # Create address segments
 
@@ -245,6 +247,7 @@ proc create_root_design { parentCell } {
   # Restore current instance
   current_bd_instance $oldCurInst
 
+  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -256,6 +259,4 @@ proc create_root_design { parentCell } {
 
 create_root_design ""
 
-
-common::send_msg_id "BD_TCL-1000" "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
