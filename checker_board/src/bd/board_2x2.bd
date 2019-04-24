@@ -1,0 +1,221 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x2E572A37CD49A7AD",
+      "device": "xc7a100tcsg324-1",
+      "name": "board_2x2",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2018.3",
+      "validated": "true"
+    },
+    "design_tree": {
+      "rect_renderer_0": "",
+      "simple_output_0": "",
+      "rect_renderer_1": "",
+      "checkerboard_input_0": ""
+    },
+    "ports": {
+      "clk": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "board_2x2_clk",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          }
+        }
+      },
+      "y_out": {
+        "direction": "O",
+        "left": "11",
+        "right": "0"
+      },
+      "x_out": {
+        "direction": "O",
+        "left": "10",
+        "right": "0"
+      },
+      "color_out": {
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      }
+    },
+    "components": {
+      "rect_renderer_0": {
+        "vlnv": "user.org:XUP:rect_renderer:1.0",
+        "xci_name": "board_2x2_rect_renderer_0_0",
+        "parameters": {
+          "SHAPE_ID": {
+            "value": "2"
+          }
+        }
+      },
+      "simple_output_0": {
+        "vlnv": "user.org:XUP:simple_output:1.0",
+        "xci_name": "board_2x2_simple_output_0_0"
+      },
+      "rect_renderer_1": {
+        "vlnv": "user.org:XUP:rect_renderer:1.0",
+        "xci_name": "board_2x2_rect_renderer_1_0",
+        "parameters": {
+          "SHAPE_ID": {
+            "value": "3"
+          }
+        }
+      },
+      "checkerboard_input_0": {
+        "vlnv": "user.org:XUP:checkerboard_input:1.0",
+        "xci_name": "board_2x2_checkerboard_input_0_0"
+      }
+    },
+    "nets": {
+      "clk_0_1": {
+        "ports": [
+          "clk",
+          "rect_renderer_0/clk",
+          "rect_renderer_1/clk",
+          "checkerboard_input_0/clk"
+        ]
+      },
+      "simple_output_0_y_out": {
+        "ports": [
+          "simple_output_0/y_out",
+          "y_out"
+        ]
+      },
+      "simple_output_0_x_out": {
+        "ports": [
+          "simple_output_0/x_out",
+          "x_out"
+        ]
+      },
+      "simple_output_0_color_out": {
+        "ports": [
+          "simple_output_0/color_out",
+          "color_out"
+        ]
+      },
+      "rect_renderer_0_shape_height_out": {
+        "ports": [
+          "rect_renderer_0/shape_height_out",
+          "rect_renderer_1/shape_height"
+        ]
+      },
+      "rect_renderer_0_shape_width_out": {
+        "ports": [
+          "rect_renderer_0/shape_width_out",
+          "rect_renderer_1/shape_width"
+        ]
+      },
+      "rect_renderer_0_color_out": {
+        "ports": [
+          "rect_renderer_0/color_out",
+          "rect_renderer_1/color_in"
+        ]
+      },
+      "rect_renderer_0_y_out": {
+        "ports": [
+          "rect_renderer_0/y_out",
+          "rect_renderer_1/y"
+        ]
+      },
+      "rect_renderer_0_x_out": {
+        "ports": [
+          "rect_renderer_0/x_out",
+          "rect_renderer_1/x"
+        ]
+      },
+      "rect_renderer_0_program_out": {
+        "ports": [
+          "rect_renderer_0/program_out",
+          "rect_renderer_1/program_in"
+        ]
+      },
+      "rect_renderer_1_program_out": {
+        "ports": [
+          "rect_renderer_1/program_out",
+          "simple_output_0/program_in"
+        ]
+      },
+      "rect_renderer_1_x_out": {
+        "ports": [
+          "rect_renderer_1/x_out",
+          "simple_output_0/x"
+        ]
+      },
+      "rect_renderer_1_y_out": {
+        "ports": [
+          "rect_renderer_1/y_out",
+          "simple_output_0/y"
+        ]
+      },
+      "rect_renderer_1_color_out": {
+        "ports": [
+          "rect_renderer_1/color_out",
+          "simple_output_0/color_in"
+        ]
+      },
+      "rect_renderer_1_shape_width_out": {
+        "ports": [
+          "rect_renderer_1/shape_width_out",
+          "simple_output_0/shape_width"
+        ]
+      },
+      "rect_renderer_1_shape_height_out": {
+        "ports": [
+          "rect_renderer_1/shape_height_out",
+          "simple_output_0/shape_height"
+        ]
+      },
+      "checkerboard_input_0_shape_height_out": {
+        "ports": [
+          "checkerboard_input_0/shape_height_out",
+          "rect_renderer_0/shape_height"
+        ]
+      },
+      "checkerboard_input_0_shape_width_out": {
+        "ports": [
+          "checkerboard_input_0/shape_width_out",
+          "rect_renderer_0/shape_width"
+        ]
+      },
+      "checkerboard_input_0_color_out": {
+        "ports": [
+          "checkerboard_input_0/color_out",
+          "rect_renderer_0/color_in"
+        ]
+      },
+      "checkerboard_input_0_y_out": {
+        "ports": [
+          "checkerboard_input_0/y_out",
+          "rect_renderer_0/y"
+        ]
+      },
+      "checkerboard_input_0_x_out": {
+        "ports": [
+          "checkerboard_input_0/x_out",
+          "rect_renderer_0/x"
+        ]
+      },
+      "checkerboard_input_0_program_out": {
+        "ports": [
+          "checkerboard_input_0/program_out",
+          "rect_renderer_0/program_in"
+        ]
+      }
+    }
+  }
+}
