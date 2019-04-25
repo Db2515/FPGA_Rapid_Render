@@ -1,0 +1,22 @@
+ digraph Circuit {
+      Shape0 [label="Rectangle"];
+      Shape1 [label="Ellipse"];
+      Shape2 [label="Rectangle .x_coord(14), .y_coord(14), .width(4), .height(4)"];
+ 
+      Clock -> Shape0:Clock;
+      Clock -> Shape0:Clock;
+      Clock -> Shape0:Clock;
+ 
+      Shape0:OutputX -> Shape1:InputX [label="X"];
+      Shape0:OutputY -> Shape1:InputY [label="Y"];
+      Shape0:OutputR -> Shape1:InputR [label="R"];
+      Shape0:OutputG -> Shape1:InputG [label="G"];
+      Shape0:OutputB -> Shape1:InputB [label="B"];
+ 
+      Shape1:OutputX -> Shape2:InputX [label="X"];
+      Shape1:OutputY -> Shape2:InputY [label="Y"];
+      Shape1:OutputR -> Shape2:InputR [label="R"];
+      Shape1:OutputG -> Shape2:InputG [label="G"];
+      Shape1:OutputB -> Shape2:InputB [label="B"];
+
+}
