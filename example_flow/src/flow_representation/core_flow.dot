@@ -4,8 +4,8 @@
       Shape2 [label="Rectangle .x_coord(14), .y_coord(14), .width(4), .height(4)"];
  
       Clock -> Shape0:Clock;
-      Clock -> Shape0:Clock;
-      Clock -> Shape0:Clock;
+      Clock -> Shape1:Clock;
+      Clock -> Shape2:Clock;
  
       Shape0:OutputX -> Shape1:InputX [label="X"];
       Shape0:OutputY -> Shape1:InputY [label="Y"];

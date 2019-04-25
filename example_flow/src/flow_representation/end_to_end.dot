@@ -7,8 +7,8 @@
  
       Clock -> ScanGenerator:Clock;
       Clock -> Shape0:Clock;
-      Clock -> Shape0:Clock;
-      Clock -> Shape0:Clock;
+      Clock -> Shape1:Clock;
+      Clock -> Shape2:Clock;
       Clock -> DisplayDriver:Clock;
  
       ScanGenerator:OutputX -> Shape0:InputX [label="X"];
