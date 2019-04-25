@@ -1,51 +1,36 @@
-module rect_renderer #(parameter SHAPE_ID = 1)
-    (input wire clk,
-     input wire [5:0] program_in,
-     input wire [10:0] x, 
-     input wire [11:0] y,
-     input wire[31:0] color_in,
-     input wire [10:0] shape_width,
-     input wire [11:0] shape_height, 
-     output wire [5:0] program_out,
-     output wire [10:0] x_out,
-     output wire [11:0] y_out,
-     output wire [31:0] color_out,
-     output wire [10:0] shape_width_out,
-     output wire [11:0] shape_height_out);
+module rect_renderer
+    (input clk,
+     input [10:0] x, 
+     input [11:0] y,
+     input [7:0] r,
+     input [7:0] g,
+     input [7:0] b,
+     output reg [10:0] x_out,
+     output reg [11:0] y_out,
+     output reg [7:0] r_out,
+     output reg [7:0] g_out,
+     output reg [7:0] b_out);
 
-    reg [11:0] xcoord = 0;
-    reg [12:0] ycoord = 0;
-    reg [11:0] width = 0;
-    reg [12:0] height = 0;
-    reg [31:0] color = ~0; //Default color = white
-    
-    reg [31:0] color_tmp;
+    parameter x_coord = 0;
+    parameter y_coord = 0;
+    parameter width = 32;
+    parameter height = 32;
+    parameter shape_r = 8'hFF; //Default color = Red
+    parameter shape_g = 8'h00;
+    parameter shape_b = 8'h00;
+  
+    wire inshape = x >= x_coord && x < x_coord + width 
+                    && y >= y_coord && y < y_coord + height;
     
     always @(posedge clk) 
     begin
-        if (program_in == SHAPE_ID)
-            begin
-                xcoord = x;
-                ycoord = y;
-                width = shape_width;
-                height = shape_height;
-                color = color_in;
-            end
-                
-        color_tmp = x >= xcoord & x < xcoord + width 
-                    & y >= ycoord & y < ycoord + height
-                    ? color : color_in;
-    end
-    
-    assign program_out = program_in;
-    assign x_out = x;
-    assign y_out = y;
         
-    // If program_in  != 0 we are reprogramming a shape so pass inputs through
-    
-    assign color_out = program_in != 0 ? color_in : color_tmp;
-                    
-    assign shape_width_out = shape_width;
-    assign shape_height_out = shape_height;
+        x_out <= x;
+        y_out <= y;
+            
+        r_out <= inshape ? shape_r : r;
+        g_out <= inshape ? shape_g : g;    
+        b_out <= inshape ? shape_b : b;        
+    end
                     
 endmodule
