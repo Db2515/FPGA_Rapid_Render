@@ -125,7 +125,6 @@ set bCheckIPs 1
 if { $bCheckIPs == 1 } {
    set list_check_ips "\ 
 user.org:XUP:rect_renderer:1.0\
-user.org:XUP:simple_output:1.0\
 "
 
    set list_ips_missing ""
@@ -192,11 +191,9 @@ proc create_root_design { parentCell } {
 
   # Create ports
   set clk [ create_bd_port -dir I -type clk clk ]
-  set color_in [ create_bd_port -dir I -from 31 -to 0 color_in ]
-  set color_out [ create_bd_port -dir O -from 31 -to 0 color_out ]
-  set program_in [ create_bd_port -dir I -from 5 -to 0 program_in ]
-  set shape_height [ create_bd_port -dir I -from 11 -to 0 shape_height ]
-  set shape_width [ create_bd_port -dir I -from 10 -to 0 shape_width ]
+  set data_in [ create_bd_port -dir I -from 31 -to 0 data_in ]
+  set data_out [ create_bd_port -dir O -from 31 -to 0 data_out ]
+  set program_in [ create_bd_port -dir I program_in ]
   set x [ create_bd_port -dir I -from 10 -to 0 x ]
   set x_out [ create_bd_port -dir O -from 10 -to 0 x_out ]
   set y [ create_bd_port -dir I -from 11 -to 0 y ]
@@ -205,41 +202,25 @@ proc create_root_design { parentCell } {
   # Create instance: rect_renderer_0, and set properties
   set rect_renderer_0 [ create_bd_cell -type ip -vlnv user.org:XUP:rect_renderer:1.0 rect_renderer_0 ]
   set_property -dict [ list \
-   CONFIG.SHAPE_ID {2} \
+   CONFIG.SHAPE_ID {1} \
  ] $rect_renderer_0
 
   # Create instance: rect_renderer_1, and set properties
   set rect_renderer_1 [ create_bd_cell -type ip -vlnv user.org:XUP:rect_renderer:1.0 rect_renderer_1 ]
-  set_property -dict [ list \
-   CONFIG.SHAPE_ID {3} \
- ] $rect_renderer_1
-
-  # Create instance: simple_output_0, and set properties
-  set simple_output_0 [ create_bd_cell -type ip -vlnv user.org:XUP:simple_output:1.0 simple_output_0 ]
 
   # Create port connections
   connect_bd_net -net clk_0_1 [get_bd_ports clk] [get_bd_pins rect_renderer_0/clk] [get_bd_pins rect_renderer_1/clk]
-  connect_bd_net -net color_in_0_1 [get_bd_ports color_in] [get_bd_pins rect_renderer_0/color_in]
-  connect_bd_net -net program_in_0_1 [get_bd_ports program_in] [get_bd_pins rect_renderer_0/program_in]
-  connect_bd_net -net rect_renderer_0_color_out [get_bd_pins rect_renderer_0/color_out] [get_bd_pins rect_renderer_1/color_in]
-  connect_bd_net -net rect_renderer_0_program_out [get_bd_pins rect_renderer_0/program_out] [get_bd_pins rect_renderer_1/program_in]
-  connect_bd_net -net rect_renderer_0_shape_height_out [get_bd_pins rect_renderer_0/shape_height_out] [get_bd_pins rect_renderer_1/shape_height]
-  connect_bd_net -net rect_renderer_0_shape_width_out [get_bd_pins rect_renderer_0/shape_width_out] [get_bd_pins rect_renderer_1/shape_width]
-  connect_bd_net -net rect_renderer_0_x_out [get_bd_pins rect_renderer_0/x_out] [get_bd_pins rect_renderer_1/x]
-  connect_bd_net -net rect_renderer_0_y_out [get_bd_pins rect_renderer_0/y_out] [get_bd_pins rect_renderer_1/y]
-  connect_bd_net -net rect_renderer_1_color_out [get_bd_pins rect_renderer_1/color_out] [get_bd_pins simple_output_0/color_in]
-  connect_bd_net -net rect_renderer_1_program_out [get_bd_pins rect_renderer_1/program_out] [get_bd_pins simple_output_0/program_in]
-  connect_bd_net -net rect_renderer_1_shape_height_out [get_bd_pins rect_renderer_1/shape_height_out] [get_bd_pins simple_output_0/shape_height]
-  connect_bd_net -net rect_renderer_1_shape_width_out [get_bd_pins rect_renderer_1/shape_width_out] [get_bd_pins simple_output_0/shape_width]
-  connect_bd_net -net rect_renderer_1_x_out [get_bd_pins rect_renderer_1/x_out] [get_bd_pins simple_output_0/x]
-  connect_bd_net -net rect_renderer_1_y_out [get_bd_pins rect_renderer_1/y_out] [get_bd_pins simple_output_0/y]
-  connect_bd_net -net shape_height_0_1 [get_bd_ports shape_height] [get_bd_pins rect_renderer_0/shape_height]
-  connect_bd_net -net shape_width_0_1 [get_bd_ports shape_width] [get_bd_pins rect_renderer_0/shape_width]
-  connect_bd_net -net simple_output_0_color_out [get_bd_ports color_out] [get_bd_pins simple_output_0/color_out]
-  connect_bd_net -net simple_output_0_x_out [get_bd_ports x_out] [get_bd_pins simple_output_0/x_out]
-  connect_bd_net -net simple_output_0_y_out [get_bd_ports y_out] [get_bd_pins simple_output_0/y_out]
-  connect_bd_net -net x_0_1 [get_bd_ports x] [get_bd_pins rect_renderer_0/x]
-  connect_bd_net -net y_0_1 [get_bd_ports y] [get_bd_pins rect_renderer_0/y]
+  connect_bd_net -net data_in_0_1 [get_bd_ports data_in] [get_bd_pins rect_renderer_1/data_in]
+  connect_bd_net -net program_in_0_1 [get_bd_ports program_in] [get_bd_pins rect_renderer_1/program_in]
+  connect_bd_net -net rect_renderer_0_data_out [get_bd_ports data_out] [get_bd_pins rect_renderer_0/data_out]
+  connect_bd_net -net rect_renderer_0_x_out [get_bd_ports x_out] [get_bd_pins rect_renderer_0/x_out]
+  connect_bd_net -net rect_renderer_0_y_out [get_bd_ports y_out] [get_bd_pins rect_renderer_0/y_out]
+  connect_bd_net -net rect_renderer_1_data_out [get_bd_pins rect_renderer_0/data_in] [get_bd_pins rect_renderer_1/data_out]
+  connect_bd_net -net rect_renderer_1_program_out [get_bd_pins rect_renderer_0/program_in] [get_bd_pins rect_renderer_1/program_out]
+  connect_bd_net -net rect_renderer_1_x_out [get_bd_pins rect_renderer_0/x] [get_bd_pins rect_renderer_1/x_out]
+  connect_bd_net -net rect_renderer_1_y_out [get_bd_pins rect_renderer_0/y] [get_bd_pins rect_renderer_1/y_out]
+  connect_bd_net -net x_0_1 [get_bd_ports x] [get_bd_pins rect_renderer_1/x]
+  connect_bd_net -net y_0_1 [get_bd_ports y] [get_bd_pins rect_renderer_1/y]
 
   # Create address segments
 
