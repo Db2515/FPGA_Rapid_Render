@@ -23,27 +23,23 @@
 module rect_renderer_tb();
     
     reg clk;
-    reg [5:0] program_in;
+    reg program_in;
     reg [10:0] x; 
     reg [11:0] y;
-    reg [31:0] color_in;
-    reg [10:0] shape_width;
-    reg [11:0] shape_height;
+    reg [31:0] data_in;
     wire [10:0] x_out;
     wire [11:0] y_out;
-    wire [31:0] color_out;
+    wire [31:0] data_out;
     
     rect_renderer DUT(
         .clk(clk),
         .program_in(program_in),
         .x(x),
         .y(y),
-        .color_in(color_in),
-        .shape_width(shape_width),
-        .shape_height(shape_height),
+        .data_in(data_in),
         .x_out(x_out),
         .y_out(y_out),
-        .color_out(color_out));
+        .data_out(data_out));
         
         reg [31:0] expected = 0;
         integer i = 0;
@@ -58,24 +54,31 @@ module rect_renderer_tb();
             // Set shape to cover entire screen as black rect
             program_in = 1;
             x = 0;
-            y = 0;
-            shape_width = 1080;
-            shape_height = 2160;
-            color_in = 'hFF000000;
+            y = 2;
+            data_in = 1080;
+            @(negedge clk);
+            y = 3;
+            data_in = 2160;
+            @(negedge clk);
+            y = 4;
+            data_in = 'hFF000000;
+            //shape_width = 1080;
+            //shape_height = 2160;
+            //color_in = 'hFF000000;
             @(negedge clk);
             // Test sample of pixels output black color
             program_in = 0;
             //Set background color to BLUE this should not been seen as shape is full screen
-            color_in = 'hFF0000FF;
+            data_in = 'hFF0000FF;
             for(i = 0; i < 1080; i = i + 135) begin
                 x = i;
                 for(j = 0; j < 2160; j = j + 135) begin
                     y = j;
                     expected = 'hFF000000;
                     @(negedge clk);
-                    if (color_out != expected) 
+                    if (data_out != expected) 
                     begin 
-                        $display("Initial Setup: %d %d Actual color_out %h, Expected color_out %h", i, j, color_out, expected); 
+                        $display("Initial Setup: %d %d Actual color_out %h, Expected color_out %h", i, j, data_out, expected); 
                     end
                 end
             end
@@ -84,21 +87,21 @@ module rect_renderer_tb();
             // Set shape_color to RED
             program_in = 1;
             x = 0;
-            y = 0;
-            color_in = 'hFFFF0000;
+            y = 4;
+            data_in = 'hFFFF0000;
             @(negedge clk)
             program_in = 0;
             //Set background color to BLUE this should not been seen as shape is full screen
             // Instead we should see RED
-            color_in = 'hFF0000FF;
+            data_in = 'hFF0000FF;
             for(i = 0; i < 1080; i = i + 135) begin
                 x = i;
                 for(j = 0; j < 2160; j = j + 135) begin
                     y = j;
                     expected = 'hFFFF0000;
                     @(negedge clk)
-                    if (color_out != expected) begin
-                        $display("Red Color: %d %d Actual color_out %h, Expected color_out %h", i, j, color_out, expected); 
+                    if (data_out != expected) begin
+                        $display("Red Color: %d %d Actual color_out %h, Expected color_out %h", i, j, data_out, expected); 
                     end
                 end
             end
@@ -107,21 +110,20 @@ module rect_renderer_tb();
             // Half the width, shape_color still RED
             program_in = 1;
             x = 0;
-            y = 0;
-            color_in = 'hFFFF0000;
-            shape_width = 540;
+            y = 2;
+            data_in = 540;
             @(negedge clk);
             program_in = 0;
             //Set background color to BLUE this should not been seen as shape is full screen
             // Instead we should see RED
-            color_in = 'hFF0000FF;
+            data_in = 'hFF0000FF;
             for(i = 0; i < 1080; i = i + 135) begin
                 x = i;
                 for(j = 0; j < 2160; j = j + 135) begin
-                    expected = i < shape_width ? 'hFFFF0000 : 'hFF0000FF;
+                    expected = i < 540 ? 'hFFFF0000 : 'hFF0000FF;
                     @(negedge clk);
-                    if (color_out != expected) begin
-                        $display("Half Width: %d %d Actual color_out %h, Expected color_out %h", i, j, color_out, 'hFFFF0000); 
+                    if (data_out != expected) begin
+                        $display("Half Width: %d %d Actual color_out %h, Expected color_out %h", i, j, data_out, 'hFFFF0000); 
                     end
                 end
             end
@@ -129,22 +131,22 @@ module rect_renderer_tb();
             // Test shape position change
             // Move the rect to second half of screen
             program_in = 1;
-            x = 540;
+            x = 0;
             y = 0;
-            color_in = 'hFFFF0000;
+            data_in = 540;
             @(negedge clk);
             program_in = 0;
             //Set background color to BLUE this should not been seen as shape is full screen
             // Instead we should see RED
-            color_in = 'hFF0000FF;
+            data_in = 'hFF0000FF;
             for(i = 0; i < 1080; i = i + 135) begin
                 x = i;
                 for(j = 0; j < 2160; j = j + 135) begin
                     y = j;
-                    expected = i < shape_width ? 'hFF0000FF : 'hFFFF0000;
+                    expected = i < 540 ? 'hFF0000FF : 'hFFFF0000;
                     @(negedge clk);
-                    if (color_out != expected) begin
-                        $display("Half Width Shifted: %d %d Actual color_out %h, Expected color_out %h", i, j, color_out, 'hFFFF0000); 
+                    if (data_out != expected) begin
+                        $display("Half Width Shifted: %d %d Actual color_out %h, Expected color_out %h", i, j, data_out, 'hFFFF0000); 
                     end
                 end
             end
