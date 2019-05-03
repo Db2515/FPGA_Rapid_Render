@@ -104,10 +104,6 @@
         <spirit:name>program_in</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
-          <spirit:vector>
-            <spirit:left spirit:format="long">5</spirit:left>
-            <spirit:right spirit:format="long">0</spirit:right>
-          </spirit:vector>
           <spirit:wireTypeDefs>
             <spirit:wireTypeDef>
               <spirit:typeName>std_logic</spirit:typeName>
@@ -172,10 +168,6 @@
         <spirit:name>program_out</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
-          <spirit:vector>
-            <spirit:left spirit:format="long">5</spirit:left>
-            <spirit:right spirit:format="long">0</spirit:right>
-          </spirit:vector>
           <spirit:wireTypeDefs>
             <spirit:wireTypeDef>
               <spirit:typeName>reg</spirit:typeName>
@@ -328,8 +320,8 @@
       <xilinx:displayName>Simple Rect Renderer</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
       <xilinx:vendorDisplayName>DB2515</xilinx:vendorDisplayName>
-      <xilinx:coreRevision>4</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2019-04-27T17:22:11Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>5</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2019-05-03T14:47:54Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2675e95e_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@3851dce6_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
@@ -371,13 +363,30 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@e1c7ded_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@44e9857e_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@518be8ae_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@43b17df4_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@19628638_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@764d595_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@79035139_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@560dbdc7_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f925a87_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49721a33_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@71d10c09_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f617485_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4c27de81_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2982aca3_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b1c1cdd_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d6a7b66_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2189f44b_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7cf8a5a8_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d12d24f_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@50f24d23_ARCHIVE_LOCATION">/home/dan/FPGA_Rapid_Render/rect_renderer/src/ip/Simple_rect</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2018.3</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="a88d4390"/>
       <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="09993ade"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="ec0a51c1"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="2e1078bd"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="d217c172"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="9bf260c6"/>
     </xilinx:packagingInfo>
