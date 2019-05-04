@@ -43,9 +43,6 @@ module ellipse_renderer_tb();
         .y_out(y_out),
         .data_out(data_out));
         
-        reg [31:0] expected = 0;
-        integer i = 0;
-        integer j = 0;
         
         initial begin
             f = $fopen("output.txt","w");
@@ -79,7 +76,7 @@ module ellipse_renderer_tb();
             #50
             clk = ~clk;
             y = 4;
-            data_in = 'hFF0000FF; // Color = BLUE
+            data_in = 'hFF0000FF; // Color = RED
             #50
             clk = ~clk;
             #50
@@ -87,7 +84,7 @@ module ellipse_renderer_tb();
             program_in = 0;
             x = 0;
             y = 0;
-            data_in = 'hFFFF0000; // RED
+            data_in = 'hFFFF0000; // BLUE
             forever #10 clk = ~clk;
         end
         
