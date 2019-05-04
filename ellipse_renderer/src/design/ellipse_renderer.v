@@ -32,19 +32,22 @@ module ellipse_renderer #(parameter SHAPE_ID = 0)
      output reg [31:0] data_out
      );
      
-    reg [11:0] x_coord = 0;  //Reg_ID = 0
-    reg [12:0] y_coord = 0;  //Reg_ID = 1
-    reg [11:0] width_rad = 0;   //Reg_ID = 2
-    reg [12:0] height_rad = 0;  //Reg_ID = 3
+    reg [10:0] x_coord = 0;  //Reg_ID = 0
+    reg [11:0] y_coord = 0;  //Reg_ID = 1
+    reg [10:0] width_rad = 0;   //Reg_ID = 2
+    reg [11:0] height_rad = 0;  //Reg_ID = 3
     reg [31:0] color = ~0;  //Red_ID = 4 Default color = white
+    
     
     wire [10:0] TranslatedX = x > x_coord ? x - x_coord : x_coord - x;
     wire [11:0] TranslatedY = y > y_coord ? y - y_coord : y_coord - y;
-    wire inshape  = (width_rad * width_rad * TranslatedX * TranslatedX)
-                    + (height_rad * height_rad * TranslatedY * TranslatedY)
-                    < (width_rad * width_rad * height_rad * height_rad);
+    
+    wire [50:0] calc = ((height_rad * height_rad * TranslatedX * TranslatedX)
+                    + (width_rad * width_rad * TranslatedY * TranslatedY));
+    wire [48:0] bound = (width_rad * width_rad * height_rad * height_rad);
+    
+    wire inshape  = calc <= bound;
                     
-    //wire [31:0] color_tmp = program_in != 0 ? data_in : (inshape ? color : data_in);
     
     //Inputs
     always @(posedge clk) 
@@ -53,30 +56,30 @@ module ellipse_renderer #(parameter SHAPE_ID = 0)
             //Change reg with ID = to y
             begin
                 if (y == 0) begin
-                    x_coord = data_in;
+                    x_coord <= data_in;
                 end
                 else if (y == 1) begin
-                    y_coord = data_in;
+                    y_coord <= data_in;
                 end
                 else if (y == 2) begin
-                    width_rad = data_in;
+                    width_rad <= data_in;
                 end
                 else if (y == 3) begin
-                    height_rad = data_in;
+                    height_rad <= data_in;
                 end
                 else if (y == 4) begin
-                    color = data_in;
+                    color <= data_in;
                 end
             end
     end
     
     always @(posedge clk) begin
-        program_out = program_in;
-        x_out = x;
-        y_out = y;
+        program_out <= program_in;
+        x_out <= x;
+        y_out <= y;
             
         // If program_in  != 0 we are reprogramming a shape so pass inputs through
         
-        data_out = program_in == 0 && inshape ? color : data_in;
+        data_out <= !program_in && inshape ? color : data_in;
     end
 endmodule
