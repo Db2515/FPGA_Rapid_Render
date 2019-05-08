@@ -1,0 +1,20 @@
+ digraph Circuit {
+      Shape0 [label="Rectangle .width(540), .height(1080)"];
+      Shape1 [label="Rectangle .x_coord(540), .y_coord(1080), .width(540), .height(1080)"];
+ 
+      clk -> Shape0:clk;
+      clk -> Shape1:clk;
+
+      x -> Shape0:x;
+      y -> Shape0:y;
+      data -> Shape0:data;
+
+      Shape1:x_out -> x_out;
+      Shape1:y_out -> y_out;
+      Shape1:data_out -> data_out;
+ 
+      Shape0:x_out -> Shape1:x [label="X"];
+      Shape0:y_out -> Shape1:y [label="Y"];
+      Shape0:data_out -> Shape1:data [label="Data"];
+ 
+}
