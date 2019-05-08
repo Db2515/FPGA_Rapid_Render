@@ -1,0 +1,1494 @@
+begin block
+  name rect_renderer_routed_ooc
+  pblocks 1
+  clocks 0
+  inputs 57
+  outputs 56
+
+  begin pblock
+    name pblock_1 
+    grid_ranges SLICE_X46Y100:SLICE_X51Y104
+  end pblock
+
+  begin input
+    name clk
+    netname clk
+    numprims 138
+    type input clock local
+    maxdelay 0.000
+    begin connections
+      pin color_reg[0]/C SLICE_X51Y102 SLICE_X51Y102/CLK
+      pin color_reg[10]/C SLICE_X46Y104 SLICE_X46Y104/CLK
+      pin color_reg[11]/C SLICE_X46Y104 SLICE_X46Y104/CLK
+      pin color_reg[12]/C SLICE_X46Y104 SLICE_X46Y104/CLK
+      pin color_reg[13]/C SLICE_X46Y104 SLICE_X46Y104/CLK
+      pin color_reg[14]/C SLICE_X46Y104 SLICE_X46Y104/CLK
+      pin color_reg[15]/C SLICE_X46Y104 SLICE_X46Y104/CLK
+      pin color_reg[16]/C SLICE_X46Y104 SLICE_X46Y104/CLK
+      pin color_reg[17]/C SLICE_X46Y104 SLICE_X46Y104/CLK
+      pin color_reg[18]/C SLICE_X51Y102 SLICE_X51Y102/CLK
+      pin color_reg[19]/C SLICE_X51Y102 SLICE_X51Y102/CLK
+      pin color_reg[1]/C SLICE_X51Y102 SLICE_X51Y102/CLK
+      pin color_reg[20]/C SLICE_X51Y102 SLICE_X51Y102/CLK
+      pin color_reg[21]/C SLICE_X51Y102 SLICE_X51Y102/CLK
+      pin color_reg[22]/C SLICE_X50Y101 SLICE_X50Y101/CLK
+      pin color_reg[23]/C SLICE_X50Y101 SLICE_X50Y101/CLK
+      pin color_reg[24]/C SLICE_X48Y103 SLICE_X48Y103/CLK
+      pin color_reg[25]/C SLICE_X48Y103 SLICE_X48Y103/CLK
+      pin color_reg[26]/C SLICE_X50Y100 SLICE_X50Y100/CLK
+      pin color_reg[27]/C SLICE_X50Y100 SLICE_X50Y100/CLK
+      pin color_reg[28]/C SLICE_X50Y100 SLICE_X50Y100/CLK
+      pin color_reg[29]/C SLICE_X50Y100 SLICE_X50Y100/CLK
+      pin color_reg[2]/C SLICE_X48Y103 SLICE_X48Y103/CLK
+      pin color_reg[30]/C SLICE_X50Y100 SLICE_X50Y100/CLK
+      pin color_reg[31]/C SLICE_X50Y100 SLICE_X50Y100/CLK
+      pin color_reg[3]/C SLICE_X48Y103 SLICE_X48Y103/CLK
+      pin color_reg[4]/C SLICE_X50Y101 SLICE_X50Y101/CLK
+      pin color_reg[5]/C SLICE_X50Y101 SLICE_X50Y101/CLK
+      pin color_reg[6]/C SLICE_X50Y100 SLICE_X50Y100/CLK
+      pin color_reg[7]/C SLICE_X50Y100 SLICE_X50Y100/CLK
+      pin color_reg[8]/C SLICE_X51Y102 SLICE_X51Y102/CLK
+      pin color_reg[9]/C SLICE_X51Y102 SLICE_X51Y102/CLK
+      pin data_out_reg[0]/C SLICE_X51Y103 SLICE_X51Y103/CLK
+      pin data_out_reg[10]/C SLICE_X47Y104 SLICE_X47Y104/CLK
+      pin data_out_reg[11]/C SLICE_X47Y104 SLICE_X47Y104/CLK
+      pin data_out_reg[12]/C SLICE_X47Y104 SLICE_X47Y104/CLK
+      pin data_out_reg[13]/C SLICE_X47Y104 SLICE_X47Y104/CLK
+      pin data_out_reg[14]/C SLICE_X47Y104 SLICE_X47Y104/CLK
+      pin data_out_reg[15]/C SLICE_X47Y104 SLICE_X47Y104/CLK
+      pin data_out_reg[16]/C SLICE_X47Y104 SLICE_X47Y104/CLK
+      pin data_out_reg[17]/C SLICE_X47Y104 SLICE_X47Y104/CLK
+      pin data_out_reg[18]/C SLICE_X51Y101 SLICE_X51Y101/CLK
+      pin data_out_reg[19]/C SLICE_X51Y101 SLICE_X51Y101/CLK
+      pin data_out_reg[1]/C SLICE_X51Y103 SLICE_X51Y103/CLK
+      pin data_out_reg[20]/C SLICE_X51Y101 SLICE_X51Y101/CLK
+      pin data_out_reg[21]/C SLICE_X51Y101 SLICE_X51Y101/CLK
+      pin data_out_reg[22]/C SLICE_X51Y101 SLICE_X51Y101/CLK
+      pin data_out_reg[23]/C SLICE_X51Y101 SLICE_X51Y101/CLK
+      pin data_out_reg[24]/C SLICE_X51Y103 SLICE_X51Y103/CLK
+      pin data_out_reg[25]/C SLICE_X51Y103 SLICE_X51Y103/CLK
+      pin data_out_reg[26]/C SLICE_X51Y100 SLICE_X51Y100/CLK
+      pin data_out_reg[27]/C SLICE_X51Y100 SLICE_X51Y100/CLK
+      pin data_out_reg[28]/C SLICE_X49Y100 SLICE_X49Y100/CLK
+      pin data_out_reg[29]/C SLICE_X49Y100 SLICE_X49Y100/CLK
+      pin data_out_reg[2]/C SLICE_X51Y103 SLICE_X51Y103/CLK
+      pin data_out_reg[30]/C SLICE_X49Y100 SLICE_X49Y100/CLK
+      pin data_out_reg[31]/C SLICE_X49Y100 SLICE_X49Y100/CLK
+      pin data_out_reg[3]/C SLICE_X51Y103 SLICE_X51Y103/CLK
+      pin data_out_reg[4]/C SLICE_X51Y101 SLICE_X51Y101/CLK
+      pin data_out_reg[5]/C SLICE_X51Y101 SLICE_X51Y101/CLK
+      pin data_out_reg[6]/C SLICE_X49Y100 SLICE_X49Y100/CLK
+      pin data_out_reg[7]/C SLICE_X49Y100 SLICE_X49Y100/CLK
+      pin data_out_reg[8]/C SLICE_X51Y103 SLICE_X51Y103/CLK
+      pin data_out_reg[9]/C SLICE_X51Y103 SLICE_X51Y103/CLK
+      pin height_reg[0]/C SLICE_X46Y100 SLICE_X46Y100/CLK
+      pin height_reg[10]/C SLICE_X46Y102 SLICE_X46Y102/CLK
+      pin height_reg[11]/C SLICE_X46Y102 SLICE_X46Y102/CLK
+      pin height_reg[12]/C SLICE_X47Y103 SLICE_X47Y103/CLK
+      pin height_reg[1]/C SLICE_X46Y100 SLICE_X46Y100/CLK
+      pin height_reg[2]/C SLICE_X46Y100 SLICE_X46Y100/CLK
+      pin height_reg[3]/C SLICE_X46Y100 SLICE_X46Y100/CLK
+      pin height_reg[4]/C SLICE_X47Y100 SLICE_X47Y100/CLK
+      pin height_reg[5]/C SLICE_X47Y100 SLICE_X47Y100/CLK
+      pin height_reg[6]/C SLICE_X47Y100 SLICE_X47Y100/CLK
+      pin height_reg[7]/C SLICE_X47Y100 SLICE_X47Y100/CLK
+      pin height_reg[8]/C SLICE_X46Y102 SLICE_X46Y102/CLK
+      pin height_reg[9]/C SLICE_X46Y102 SLICE_X46Y102/CLK
+      pin program_out_reg/C SLICE_X48Y101 SLICE_X48Y101/CLK
+      pin width_reg[0]/C SLICE_X50Y102 SLICE_X50Y102/CLK
+      pin width_reg[10]/C SLICE_X49Y103 SLICE_X49Y103/CLK
+      pin width_reg[11]/C SLICE_X49Y103 SLICE_X49Y103/CLK
+      pin width_reg[1]/C SLICE_X50Y102 SLICE_X50Y102/CLK
+      pin width_reg[2]/C SLICE_X50Y102 SLICE_X50Y102/CLK
+      pin width_reg[3]/C SLICE_X50Y102 SLICE_X50Y102/CLK
+      pin width_reg[4]/C SLICE_X49Y103 SLICE_X49Y103/CLK
+      pin width_reg[5]/C SLICE_X49Y103 SLICE_X49Y103/CLK
+      pin width_reg[6]/C SLICE_X50Y103 SLICE_X50Y103/CLK
+      pin width_reg[7]/C SLICE_X50Y103 SLICE_X50Y103/CLK
+      pin width_reg[8]/C SLICE_X50Y103 SLICE_X50Y103/CLK
+      pin width_reg[9]/C SLICE_X50Y103 SLICE_X50Y103/CLK
+      pin x_out_reg[0]/C SLICE_X48Y101 SLICE_X48Y101/CLK
+      pin x_out_reg[10]/C SLICE_X48Y100 SLICE_X48Y100/CLK
+      pin x_out_reg[1]/C SLICE_X48Y100 SLICE_X48Y100/CLK
+      pin x_out_reg[2]/C SLICE_X48Y100 SLICE_X48Y100/CLK
+      pin x_out_reg[3]/C SLICE_X48Y100 SLICE_X48Y100/CLK
+      pin x_out_reg[4]/C SLICE_X48Y100 SLICE_X48Y100/CLK
+      pin x_out_reg[5]/C SLICE_X48Y100 SLICE_X48Y100/CLK
+      pin x_out_reg[6]/C SLICE_X48Y100 SLICE_X48Y100/CLK
+      pin x_out_reg[7]/C SLICE_X48Y101 SLICE_X48Y101/CLK
+      pin x_out_reg[8]/C SLICE_X48Y101 SLICE_X48Y101/CLK
+      pin x_out_reg[9]/C SLICE_X51Y100 SLICE_X51Y100/CLK
+      pin xcoord_reg[0]/C SLICE_X49Y102 SLICE_X49Y102/CLK
+      pin xcoord_reg[10]/C SLICE_X49Y104 SLICE_X49Y104/CLK
+      pin xcoord_reg[11]/C SLICE_X49Y104 SLICE_X49Y104/CLK
+      pin xcoord_reg[1]/C SLICE_X49Y102 SLICE_X49Y102/CLK
+      pin xcoord_reg[2]/C SLICE_X49Y102 SLICE_X49Y102/CLK
+      pin xcoord_reg[3]/C SLICE_X49Y102 SLICE_X49Y102/CLK
+      pin xcoord_reg[4]/C SLICE_X48Y104 SLICE_X48Y104/CLK
+      pin xcoord_reg[5]/C SLICE_X48Y104 SLICE_X48Y104/CLK
+      pin xcoord_reg[6]/C SLICE_X48Y104 SLICE_X48Y104/CLK
+      pin xcoord_reg[7]/C SLICE_X48Y104 SLICE_X48Y104/CLK
+      pin xcoord_reg[8]/C SLICE_X49Y104 SLICE_X49Y104/CLK
+      pin xcoord_reg[9]/C SLICE_X49Y104 SLICE_X49Y104/CLK
+      pin y_out_reg[0]/C SLICE_X49Y101 SLICE_X49Y101/CLK
+      pin y_out_reg[10]/C SLICE_X49Y101 SLICE_X49Y101/CLK
+      pin y_out_reg[11]/C SLICE_X51Y100 SLICE_X51Y100/CLK
+      pin y_out_reg[1]/C SLICE_X51Y100 SLICE_X51Y100/CLK
+      pin y_out_reg[2]/C SLICE_X51Y100 SLICE_X51Y100/CLK
+      pin y_out_reg[3]/C SLICE_X51Y100 SLICE_X51Y100/CLK
+      pin y_out_reg[4]/C SLICE_X51Y100 SLICE_X51Y100/CLK
+      pin y_out_reg[5]/C SLICE_X48Y100 SLICE_X48Y100/CLK
+      pin y_out_reg[6]/C SLICE_X49Y101 SLICE_X49Y101/CLK
+      pin y_out_reg[7]/C SLICE_X49Y101 SLICE_X49Y101/CLK
+      pin y_out_reg[8]/C SLICE_X49Y101 SLICE_X49Y101/CLK
+      pin y_out_reg[9]/C SLICE_X49Y101 SLICE_X49Y101/CLK
+      pin ycoord_reg[0]/C SLICE_X46Y101 SLICE_X46Y101/CLK
+      pin ycoord_reg[10]/C SLICE_X47Y102 SLICE_X47Y102/CLK
+      pin ycoord_reg[11]/C SLICE_X47Y102 SLICE_X47Y102/CLK
+      pin ycoord_reg[12]/C SLICE_X48Y102 SLICE_X48Y102/CLK
+      pin ycoord_reg[1]/C SLICE_X46Y101 SLICE_X46Y101/CLK
+      pin ycoord_reg[2]/C SLICE_X46Y101 SLICE_X46Y101/CLK
+      pin ycoord_reg[3]/C SLICE_X46Y101 SLICE_X46Y101/CLK
+      pin ycoord_reg[4]/C SLICE_X47Y101 SLICE_X47Y101/CLK
+      pin ycoord_reg[5]/C SLICE_X47Y101 SLICE_X47Y101/CLK
+      pin ycoord_reg[6]/C SLICE_X47Y101 SLICE_X47Y101/CLK
+      pin ycoord_reg[7]/C SLICE_X47Y101 SLICE_X47Y101/CLK
+      pin ycoord_reg[8]/C SLICE_X47Y102 SLICE_X47Y102/CLK
+      pin ycoord_reg[9]/C SLICE_X47Y102 SLICE_X47Y102/CLK
+    end connections
+  end input
+  begin input
+    name data_in[0]
+    netname data_in[0]
+    numprims 6
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[0]/D SLICE_X51Y102 SLICE_X51Y102/A6
+      pin height_reg[0]/D SLICE_X46Y100 SLICE_X46Y100/A3
+      pin width_reg[0]/D SLICE_X50Y102 SLICE_X50Y102/A3
+      pin xcoord_reg[0]/D SLICE_X49Y102 SLICE_X49Y102/A3
+      pin ycoord_reg[0]/D SLICE_X46Y101 SLICE_X46Y101/A3
+      pin data_out[0]_i_1/I2 SLICE_X51Y103 SLICE_X51Y103/A5
+    end connections
+  end input
+  begin input
+    name data_in[10]
+    netname data_in[10]
+    numprims 6
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[10]/D SLICE_X46Y104 SLICE_X46Y104/A6
+      pin height_reg[10]/D SLICE_X46Y102 SLICE_X46Y102/A3
+      pin width_reg[10]/D SLICE_X49Y103 SLICE_X49Y103/A3
+      pin xcoord_reg[10]/D SLICE_X49Y104 SLICE_X49Y104/A3
+      pin ycoord_reg[10]/D SLICE_X47Y102 SLICE_X47Y102/A3
+      pin data_out[10]_i_1/I2 SLICE_X47Y104 SLICE_X47Y104/A5
+    end connections
+  end input
+  begin input
+    name data_in[11]
+    netname data_in[11]
+    numprims 6
+    type input signal
+    maxdelay 1.125
+    begin connections
+      pin color_reg[11]/D SLICE_X46Y104 SLICE_X46Y104/B6
+      pin height_reg[11]/D SLICE_X46Y102 SLICE_X46Y102/B3
+      pin width_reg[11]/D SLICE_X49Y103 SLICE_X49Y103/B3
+      pin xcoord_reg[11]/D SLICE_X49Y104 SLICE_X49Y104/B3
+      pin ycoord_reg[11]/D SLICE_X47Y102 SLICE_X47Y102/B3
+      pin data_out[11]_i_1/I2 SLICE_X47Y104 SLICE_X47Y104/A2
+    end connections
+  end input
+  begin input
+    name data_in[12]
+    netname data_in[12]
+    numprims 4
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[12]/D SLICE_X46Y104 SLICE_X46Y104/C6
+      pin height_reg[12]/D SLICE_X47Y103 SLICE_X47Y103/A3
+      pin ycoord_reg[12]/D SLICE_X48Y102 SLICE_X48Y102/AX
+      pin data_out[12]_i_1/I2 SLICE_X47Y104 SLICE_X47Y104/B5
+    end connections
+  end input
+  begin input
+    name data_in[13]
+    netname data_in[13]
+    numprims 2
+    type input signal
+    maxdelay 1.125
+    begin connections
+      pin color_reg[13]/D SLICE_X46Y104 SLICE_X46Y104/D6
+      pin data_out[13]_i_1/I2 SLICE_X47Y104 SLICE_X47Y104/B2
+    end connections
+  end input
+  begin input
+    name data_in[14]
+    netname data_in[14]
+    numprims 2
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[14]/D SLICE_X46Y104 SLICE_X46Y104/AX
+      pin data_out[14]_i_1/I2 SLICE_X47Y104 SLICE_X47Y104/C5
+    end connections
+  end input
+  begin input
+    name data_in[15]
+    netname data_in[15]
+    numprims 2
+    type input signal
+    maxdelay 1.127
+    begin connections
+      pin color_reg[15]/D SLICE_X46Y104 SLICE_X46Y104/BX
+      pin data_out[15]_i_1/I2 SLICE_X47Y104 SLICE_X47Y104/C2
+    end connections
+  end input
+  begin input
+    name data_in[16]
+    netname data_in[16]
+    numprims 2
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[16]/D SLICE_X46Y104 SLICE_X46Y104/CX
+      pin data_out[16]_i_1/I2 SLICE_X47Y104 SLICE_X47Y104/D5
+    end connections
+  end input
+  begin input
+    name data_in[17]
+    netname data_in[17]
+    numprims 2
+    type input signal
+    maxdelay 1.123
+    begin connections
+      pin color_reg[17]/D SLICE_X46Y104 SLICE_X46Y104/DX
+      pin data_out[17]_i_1/I2 SLICE_X47Y104 SLICE_X47Y104/D2
+    end connections
+  end input
+  begin input
+    name data_in[18]
+    netname data_in[18]
+    numprims 2
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[18]/D SLICE_X51Y102 SLICE_X51Y102/B6
+      pin data_out[18]_i_1/I2 SLICE_X51Y101 SLICE_X51Y101/A5
+    end connections
+  end input
+  begin input
+    name data_in[19]
+    netname data_in[19]
+    numprims 2
+    type input signal
+    maxdelay 1.125
+    begin connections
+      pin color_reg[19]/D SLICE_X51Y102 SLICE_X51Y102/C6
+      pin data_out[19]_i_1/I2 SLICE_X51Y101 SLICE_X51Y101/A2
+    end connections
+  end input
+  begin input
+    name data_in[1]
+    netname data_in[1]
+    numprims 6
+    type input signal
+    maxdelay 1.125
+    begin connections
+      pin color_reg[1]/D SLICE_X51Y102 SLICE_X51Y102/D6
+      pin height_reg[1]/D SLICE_X46Y100 SLICE_X46Y100/B3
+      pin width_reg[1]/D SLICE_X50Y102 SLICE_X50Y102/B3
+      pin xcoord_reg[1]/D SLICE_X49Y102 SLICE_X49Y102/B3
+      pin ycoord_reg[1]/D SLICE_X46Y101 SLICE_X46Y101/B3
+      pin data_out[1]_i_1/I2 SLICE_X51Y103 SLICE_X51Y103/A2
+    end connections
+  end input
+  begin input
+    name data_in[20]
+    netname data_in[20]
+    numprims 2
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[20]/D SLICE_X51Y102 SLICE_X51Y102/AX
+      pin data_out[20]_i_1/I2 SLICE_X51Y101 SLICE_X51Y101/B5
+    end connections
+  end input
+  begin input
+    name data_in[21]
+    netname data_in[21]
+    numprims 2
+    type input signal
+    maxdelay 1.125
+    begin connections
+      pin color_reg[21]/D SLICE_X51Y102 SLICE_X51Y102/BX
+      pin data_out[21]_i_1/I2 SLICE_X51Y101 SLICE_X51Y101/B2
+    end connections
+  end input
+  begin input
+    name data_in[22]
+    netname data_in[22]
+    numprims 2
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[22]/D SLICE_X50Y101 SLICE_X50Y101/AX
+      pin data_out[22]_i_1/I2 SLICE_X51Y101 SLICE_X51Y101/C5
+    end connections
+  end input
+  begin input
+    name data_in[23]
+    netname data_in[23]
+    numprims 2
+    type input signal
+    maxdelay 1.127
+    begin connections
+      pin color_reg[23]/D SLICE_X50Y101 SLICE_X50Y101/BX
+      pin data_out[23]_i_1/I2 SLICE_X51Y101 SLICE_X51Y101/C2
+    end connections
+  end input
+  begin input
+    name data_in[24]
+    netname data_in[24]
+    numprims 2
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[24]/D SLICE_X48Y103 SLICE_X48Y103/AX
+      pin data_out[24]_i_1/I2 SLICE_X51Y103 SLICE_X51Y103/B5
+    end connections
+  end input
+  begin input
+    name data_in[25]
+    netname data_in[25]
+    numprims 2
+    type input signal
+    maxdelay 1.125
+    begin connections
+      pin color_reg[25]/D SLICE_X48Y103 SLICE_X48Y103/BX
+      pin data_out[25]_i_1/I2 SLICE_X51Y103 SLICE_X51Y103/B2
+    end connections
+  end input
+  begin input
+    name data_in[26]
+    netname data_in[26]
+    numprims 2
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[26]/D SLICE_X50Y100 SLICE_X50Y100/A6
+      pin data_out[26]_i_1/I2 SLICE_X51Y100 SLICE_X51Y100/A5
+    end connections
+  end input
+  begin input
+    name data_in[27]
+    netname data_in[27]
+    numprims 2
+    type input signal
+    maxdelay 1.125
+    begin connections
+      pin color_reg[27]/D SLICE_X50Y100 SLICE_X50Y100/B6
+      pin data_out[27]_i_1/I2 SLICE_X51Y100 SLICE_X51Y100/A2
+    end connections
+  end input
+  begin input
+    name data_in[28]
+    netname data_in[28]
+    numprims 2
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[28]/D SLICE_X50Y100 SLICE_X50Y100/C6
+      pin data_out[28]_i_1/I2 SLICE_X49Y100 SLICE_X49Y100/A5
+    end connections
+  end input
+  begin input
+    name data_in[29]
+    netname data_in[29]
+    numprims 2
+    type input signal
+    maxdelay 1.125
+    begin connections
+      pin color_reg[29]/D SLICE_X50Y100 SLICE_X50Y100/D6
+      pin data_out[29]_i_1/I2 SLICE_X49Y100 SLICE_X49Y100/A2
+    end connections
+  end input
+  begin input
+    name data_in[2]
+    netname data_in[2]
+    numprims 6
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[2]/D SLICE_X48Y103 SLICE_X48Y103/CX
+      pin height_reg[2]/D SLICE_X46Y100 SLICE_X46Y100/C3
+      pin width_reg[2]/D SLICE_X50Y102 SLICE_X50Y102/C3
+      pin xcoord_reg[2]/D SLICE_X49Y102 SLICE_X49Y102/C3
+      pin ycoord_reg[2]/D SLICE_X46Y101 SLICE_X46Y101/C3
+      pin data_out[2]_i_1/I2 SLICE_X51Y103 SLICE_X51Y103/C5
+    end connections
+  end input
+  begin input
+    name data_in[30]
+    netname data_in[30]
+    numprims 2
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[30]/D SLICE_X50Y100 SLICE_X50Y100/AX
+      pin data_out[30]_i_1/I2 SLICE_X49Y100 SLICE_X49Y100/B5
+    end connections
+  end input
+  begin input
+    name data_in[31]
+    netname data_in[31]
+    numprims 2
+    type input signal
+    maxdelay 1.125
+    begin connections
+      pin color_reg[31]/D SLICE_X50Y100 SLICE_X50Y100/BX
+      pin data_out[31]_i_1/I2 SLICE_X49Y100 SLICE_X49Y100/B2
+    end connections
+  end input
+  begin input
+    name data_in[3]
+    netname data_in[3]
+    numprims 6
+    type input signal
+    maxdelay 1.127
+    begin connections
+      pin color_reg[3]/D SLICE_X48Y103 SLICE_X48Y103/DX
+      pin height_reg[3]/D SLICE_X46Y100 SLICE_X46Y100/D3
+      pin width_reg[3]/D SLICE_X50Y102 SLICE_X50Y102/D3
+      pin xcoord_reg[3]/D SLICE_X49Y102 SLICE_X49Y102/D3
+      pin ycoord_reg[3]/D SLICE_X46Y101 SLICE_X46Y101/D3
+      pin data_out[3]_i_1/I2 SLICE_X51Y103 SLICE_X51Y103/C2
+    end connections
+  end input
+  begin input
+    name data_in[4]
+    netname data_in[4]
+    numprims 6
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[4]/D SLICE_X50Y101 SLICE_X50Y101/CX
+      pin height_reg[4]/D SLICE_X47Y100 SLICE_X47Y100/A3
+      pin width_reg[4]/D SLICE_X49Y103 SLICE_X49Y103/C3
+      pin xcoord_reg[4]/D SLICE_X48Y104 SLICE_X48Y104/AX
+      pin ycoord_reg[4]/D SLICE_X47Y101 SLICE_X47Y101/A3
+      pin data_out[4]_i_1/I2 SLICE_X51Y101 SLICE_X51Y101/D5
+    end connections
+  end input
+  begin input
+    name data_in[5]
+    netname data_in[5]
+    numprims 6
+    type input signal
+    maxdelay 1.123
+    begin connections
+      pin color_reg[5]/D SLICE_X50Y101 SLICE_X50Y101/DX
+      pin height_reg[5]/D SLICE_X47Y100 SLICE_X47Y100/B3
+      pin width_reg[5]/D SLICE_X49Y103 SLICE_X49Y103/D3
+      pin xcoord_reg[5]/D SLICE_X48Y104 SLICE_X48Y104/BX
+      pin ycoord_reg[5]/D SLICE_X47Y101 SLICE_X47Y101/B3
+      pin data_out[5]_i_1/I2 SLICE_X51Y101 SLICE_X51Y101/D2
+    end connections
+  end input
+  begin input
+    name data_in[6]
+    netname data_in[6]
+    numprims 6
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[6]/D SLICE_X50Y100 SLICE_X50Y100/CX
+      pin height_reg[6]/D SLICE_X47Y100 SLICE_X47Y100/C3
+      pin width_reg[6]/D SLICE_X50Y103 SLICE_X50Y103/A3
+      pin xcoord_reg[6]/D SLICE_X48Y104 SLICE_X48Y104/C5
+      pin ycoord_reg[6]/D SLICE_X47Y101 SLICE_X47Y101/C3
+      pin data_out[6]_i_1/I2 SLICE_X49Y100 SLICE_X49Y100/C5
+    end connections
+  end input
+  begin input
+    name data_in[7]
+    netname data_in[7]
+    numprims 6
+    type input signal
+    maxdelay 1.127
+    begin connections
+      pin color_reg[7]/D SLICE_X50Y100 SLICE_X50Y100/DX
+      pin height_reg[7]/D SLICE_X47Y100 SLICE_X47Y100/D3
+      pin width_reg[7]/D SLICE_X50Y103 SLICE_X50Y103/B3
+      pin xcoord_reg[7]/D SLICE_X48Y104 SLICE_X48Y104/D5
+      pin ycoord_reg[7]/D SLICE_X47Y101 SLICE_X47Y101/D3
+      pin data_out[7]_i_1/I2 SLICE_X49Y100 SLICE_X49Y100/C2
+    end connections
+  end input
+  begin input
+    name data_in[8]
+    netname data_in[8]
+    numprims 6
+    type input signal
+    maxdelay 1.097
+    begin connections
+      pin color_reg[8]/D SLICE_X51Y102 SLICE_X51Y102/CX
+      pin height_reg[8]/D SLICE_X46Y102 SLICE_X46Y102/C3
+      pin width_reg[8]/D SLICE_X50Y103 SLICE_X50Y103/C3
+      pin xcoord_reg[8]/D SLICE_X49Y104 SLICE_X49Y104/C3
+      pin ycoord_reg[8]/D SLICE_X47Y102 SLICE_X47Y102/C3
+      pin data_out[8]_i_1/I2 SLICE_X51Y103 SLICE_X51Y103/D5
+    end connections
+  end input
+  begin input
+    name data_in[9]
+    netname data_in[9]
+    numprims 6
+    type input signal
+    maxdelay 1.123
+    begin connections
+      pin color_reg[9]/D SLICE_X51Y102 SLICE_X51Y102/DX
+      pin height_reg[9]/D SLICE_X46Y102 SLICE_X46Y102/D3
+      pin width_reg[9]/D SLICE_X50Y103 SLICE_X50Y103/D3
+      pin xcoord_reg[9]/D SLICE_X49Y104 SLICE_X49Y104/D3
+      pin ycoord_reg[9]/D SLICE_X47Y102 SLICE_X47Y102/D3
+      pin data_out[9]_i_1/I2 SLICE_X51Y103 SLICE_X51Y103/D2
+    end connections
+  end input
+  begin input
+    name program_in
+    netname program_in
+    numprims 3
+    type input signal
+    maxdelay 3.972
+    begin connections
+      pin program_out_reg/D SLICE_X48Y101 SLICE_X48Y101/AX
+      pin width[11]_i_5/I1 SLICE_X49Y100 SLICE_X49Y100/D4
+      pin data_out[31]_i_2/I2 SLICE_X49Y101 SLICE_X49Y101/D4
+    end connections
+  end input
+  begin input
+    name x[0]
+    netname x[0]
+    numprims 6
+    type input signal
+    maxdelay 4.289
+    begin connections
+      pin x_out_reg[0]/D SLICE_X48Y101 SLICE_X48Y101/BX
+      pin data_out_reg[31]_i_41/DI[0] SLICE_X50Y102 SLICE_X50Y102/AX
+      pin data_out[31]_i_28/I0 SLICE_X48Y103 SLICE_X48Y103/A4
+      pin data_out[31]_i_56/I0 SLICE_X50Y102 SLICE_X50Y102/A4
+      pin width[11]_i_5/I0 SLICE_X49Y100 SLICE_X49Y100/D3
+      pin data_out[31]_i_32/I2 SLICE_X48Y103 SLICE_X48Y103/A4
+    end connections
+  end input
+  begin input
+    name x[10]
+    netname x[10]
+    numprims 6
+    type input signal
+    maxdelay 4.091
+    begin connections
+      pin x_out_reg[10]/D SLICE_X48Y100 SLICE_X48Y100/A1
+      pin data_out_reg[31]_i_5/DI[2] SLICE_X50Y104 SLICE_X50Y104/CX
+      pin data_out[31]_i_10/I0 SLICE_X48Y104 SLICE_X48Y104/B3
+      pin data_out[31]_i_20/I0 SLICE_X50Y104 SLICE_X50Y104/C5
+      pin width[11]_i_2/I1 SLICE_X49Y101 SLICE_X49Y101/C2
+      pin data_out[31]_i_8/I2 SLICE_X48Y104 SLICE_X48Y104/B3
+    end connections
+  end input
+  begin input
+    name x[1]
+    netname x[1]
+    numprims 6
+    type input signal
+    maxdelay 4.289
+    begin connections
+      pin x_out_reg[1]/D SLICE_X48Y100 SLICE_X48Y100/B1
+      pin data_out_reg[31]_i_41/DI[1] SLICE_X50Y102 SLICE_X50Y102/BX
+      pin data_out[31]_i_55/I0 SLICE_X50Y102 SLICE_X50Y102/B4
+      pin data_out[31]_i_32/I1 SLICE_X48Y103 SLICE_X48Y103/A3
+      pin data_out[31]_i_28/I3 SLICE_X48Y103 SLICE_X48Y103/A3
+      pin width[11]_i_5/I3 SLICE_X49Y100 SLICE_X49Y100/D6
+    end connections
+  end input
+  begin input
+    name x[2]
+    netname x[2]
+    numprims 6
+    type input signal
+    maxdelay 4.307
+    begin connections
+      pin x_out_reg[2]/D SLICE_X48Y100 SLICE_X48Y100/C1
+      pin data_out_reg[31]_i_41/DI[2] SLICE_X50Y102 SLICE_X50Y102/CX
+      pin data_out[31]_i_27/I0 SLICE_X48Y103 SLICE_X48Y103/B4
+      pin data_out[31]_i_54/I0 SLICE_X50Y102 SLICE_X50Y102/C4
+      pin data_out[31]_i_31/I2 SLICE_X48Y103 SLICE_X48Y103/B4
+      pin width[11]_i_5/I2 SLICE_X49Y100 SLICE_X49Y100/D5
+    end connections
+  end input
+  begin input
+    name x[3]
+    netname x[3]
+    numprims 6
+    type input signal
+    maxdelay 4.307
+    begin connections
+      pin x_out_reg[3]/D SLICE_X48Y100 SLICE_X48Y100/D6
+      pin data_out_reg[31]_i_41/DI[3] SLICE_X50Y102 SLICE_X50Y102/DX
+      pin data_out[31]_i_53/I0 SLICE_X50Y102 SLICE_X50Y102/D4
+      pin data_out[31]_i_31/I1 SLICE_X48Y103 SLICE_X48Y103/B3
+      pin data_out[31]_i_27/I3 SLICE_X48Y103 SLICE_X48Y103/B3
+      pin width[11]_i_4/I3 SLICE_X49Y101 SLICE_X49Y101/B5
+    end connections
+  end input
+  begin input
+    name x[4]
+    netname x[4]
+    numprims 6
+    type input signal
+    maxdelay 4.155
+    begin connections
+      pin x_out_reg[4]/D SLICE_X48Y100 SLICE_X48Y100/AX
+      pin data_out_reg[31]_i_18/DI[0] SLICE_X50Y103 SLICE_X50Y103/AX
+      pin data_out[31]_i_26/I0 SLICE_X48Y103 SLICE_X48Y103/C4
+      pin data_out[31]_i_45/I0 SLICE_X50Y103 SLICE_X50Y103/A4
+      pin data_out[31]_i_30/I2 SLICE_X48Y103 SLICE_X48Y103/C4
+      pin width[11]_i_4/I2 SLICE_X49Y101 SLICE_X49Y101/B4
+    end connections
+  end input
+  begin input
+    name x[5]
+    netname x[5]
+    numprims 6
+    type input signal
+    maxdelay 4.155
+    begin connections
+      pin x_out_reg[5]/D SLICE_X48Y100 SLICE_X48Y100/BX
+      pin data_out_reg[31]_i_18/DI[1] SLICE_X50Y103 SLICE_X50Y103/BX
+      pin data_out[31]_i_44/I0 SLICE_X50Y103 SLICE_X50Y103/B4
+      pin data_out[31]_i_30/I1 SLICE_X48Y103 SLICE_X48Y103/C3
+      pin width[11]_i_4/I1 SLICE_X49Y101 SLICE_X49Y101/B3
+      pin data_out[31]_i_26/I3 SLICE_X48Y103 SLICE_X48Y103/C3
+    end connections
+  end input
+  begin input
+    name x[6]
+    netname x[6]
+    numprims 6
+    type input signal
+    maxdelay 4.158
+    begin connections
+      pin x_out_reg[6]/D SLICE_X48Y100 SLICE_X48Y100/CX
+      pin data_out_reg[31]_i_18/DI[2] SLICE_X50Y103 SLICE_X50Y103/CX
+      pin data_out[31]_i_25/I0 SLICE_X48Y103 SLICE_X48Y103/D4
+      pin data_out[31]_i_43/I0 SLICE_X50Y103 SLICE_X50Y103/C4
+      pin width[11]_i_4/I0 SLICE_X49Y101 SLICE_X49Y101/B2
+      pin data_out[31]_i_29/I2 SLICE_X48Y103 SLICE_X48Y103/D4
+    end connections
+  end input
+  begin input
+    name x[7]
+    netname x[7]
+    numprims 6
+    type input signal
+    maxdelay 4.158
+    begin connections
+      pin x_out_reg[7]/D SLICE_X48Y101 SLICE_X48Y101/CX
+      pin data_out_reg[31]_i_18/DI[3] SLICE_X50Y103 SLICE_X50Y103/DX
+      pin data_out[31]_i_42/I0 SLICE_X50Y103 SLICE_X50Y103/D4
+      pin data_out[31]_i_29/I1 SLICE_X48Y103 SLICE_X48Y103/D3
+      pin data_out[31]_i_25/I3 SLICE_X48Y103 SLICE_X48Y103/D3
+      pin width[11]_i_2/I4 SLICE_X49Y101 SLICE_X49Y101/C5
+    end connections
+  end input
+  begin input
+    name x[8]
+    netname x[8]
+    numprims 6
+    type input signal
+    maxdelay 4.057
+    begin connections
+      pin x_out_reg[8]/D SLICE_X48Y101 SLICE_X48Y101/DX
+      pin data_out_reg[31]_i_5/DI[0] SLICE_X50Y104 SLICE_X50Y104/AX
+      pin data_out[31]_i_22/I0 SLICE_X50Y104 SLICE_X50Y104/A5
+      pin data_out[31]_i_9/I0 SLICE_X48Y104 SLICE_X48Y104/A4
+      pin data_out[31]_i_11/I2 SLICE_X48Y104 SLICE_X48Y104/A4
+      pin width[11]_i_2/I3 SLICE_X49Y101 SLICE_X49Y101/C4
+    end connections
+  end input
+  begin input
+    name x[9]
+    netname x[9]
+    numprims 6
+    type input signal
+    maxdelay 4.057
+    begin connections
+      pin x_out_reg[9]/D SLICE_X51Y100 SLICE_X51Y100/B6
+      pin data_out_reg[31]_i_5/DI[1] SLICE_X50Y104 SLICE_X50Y104/BX
+      pin data_out[31]_i_21/I0 SLICE_X50Y104 SLICE_X50Y104/B5
+      pin data_out[31]_i_11/I1 SLICE_X48Y104 SLICE_X48Y104/A3
+      pin width[11]_i_2/I2 SLICE_X49Y101 SLICE_X49Y101/C3
+      pin data_out[31]_i_9/I3 SLICE_X48Y104 SLICE_X48Y104/A3
+    end connections
+  end input
+  begin input
+    name y[0]
+    netname y[0]
+    numprims 10
+    type input signal
+    maxdelay 4.392
+    begin connections
+      pin y_out_reg[0]/D SLICE_X49Y101 SLICE_X49Y101/A4
+      pin data_out_reg[31]_i_62/DI[0] SLICE_X46Y100 SLICE_X46Y100/AX
+      pin data_out[31]_i_36/I0 SLICE_X48Y101 SLICE_X48Y101/A5
+      pin data_out[31]_i_77/I0 SLICE_X46Y100 SLICE_X46Y100/A4
+      pin height[12]_i_1/I1 SLICE_X48Y100 SLICE_X48Y100/A3
+      pin xcoord[11]_i_1/I1 SLICE_X48Y100 SLICE_X48Y100/B3
+      pin ycoord[12]_i_1/I1 SLICE_X48Y100 SLICE_X48Y100/C3
+      pin width[11]_i_1/I2 SLICE_X49Y101 SLICE_X49Y101/A4
+      pin color[31]_i_1/I3 SLICE_X50Y101 SLICE_X50Y101/B5
+      pin data_out[31]_i_40/I3 SLICE_X48Y101 SLICE_X48Y101/A5
+    end connections
+  end input
+  begin input
+    name y[10]
+    netname y[10]
+    numprims 6
+    type input signal
+    maxdelay 4.184
+    begin connections
+      pin y_out_reg[10]/D SLICE_X49Y101 SLICE_X49Y101/B1
+      pin data_out_reg[31]_i_23/DI[2] SLICE_X46Y102 SLICE_X46Y102/CX
+      pin data_out[31]_i_13/I0 SLICE_X48Y102 SLICE_X48Y102/B5
+      pin data_out[31]_i_49/I0 SLICE_X46Y102 SLICE_X46Y102/C4
+      pin width[11]_i_6/I2 SLICE_X50Y101 SLICE_X50Y101/D4
+      pin data_out[31]_i_16/I3 SLICE_X48Y102 SLICE_X48Y102/B5
+    end connections
+  end input
+  begin input
+    name y[11]
+    netname y[11]
+    numprims 6
+    type input signal
+    maxdelay 4.184
+    begin connections
+      pin y_out_reg[11]/D SLICE_X51Y100 SLICE_X51Y100/C6
+      pin data_out_reg[31]_i_23/DI[3] SLICE_X46Y102 SLICE_X46Y102/DX
+      pin data_out[31]_i_48/I0 SLICE_X46Y102 SLICE_X46Y102/D4
+      pin data_out[31]_i_16/I1 SLICE_X48Y102 SLICE_X48Y102/B3
+      pin width[11]_i_6/I1 SLICE_X50Y101 SLICE_X50Y101/D3
+      pin data_out[31]_i_13/I3 SLICE_X48Y102 SLICE_X48Y102/B3
+    end connections
+  end input
+  begin input
+    name y[1]
+    netname y[1]
+    numprims 10
+    type input signal
+    maxdelay 4.412
+    begin connections
+      pin y_out_reg[1]/D SLICE_X51Y100 SLICE_X51Y100/D6
+      pin data_out_reg[31]_i_62/DI[1] SLICE_X46Y100 SLICE_X46Y100/BX
+      pin data_out[31]_i_76/I0 SLICE_X46Y100 SLICE_X46Y100/B4
+      pin color[31]_i_1/I1 SLICE_X50Y101 SLICE_X50Y101/B3
+      pin data_out[31]_i_40/I1 SLICE_X48Y101 SLICE_X48Y101/A3
+      pin width[11]_i_1/I1 SLICE_X49Y101 SLICE_X49Y101/A3
+      pin height[12]_i_1/I2 SLICE_X48Y100 SLICE_X48Y100/A4
+      pin xcoord[11]_i_1/I2 SLICE_X48Y100 SLICE_X48Y100/B4
+      pin ycoord[12]_i_1/I2 SLICE_X48Y100 SLICE_X48Y100/C4
+      pin data_out[31]_i_36/I3 SLICE_X48Y101 SLICE_X48Y101/A3
+    end connections
+  end input
+  begin input
+    name y[2]
+    netname y[2]
+    numprims 7
+    type input signal
+    maxdelay 4.392
+    begin connections
+      pin y_out_reg[2]/D SLICE_X51Y100 SLICE_X51Y100/BX
+      pin data_out_reg[31]_i_62/DI[2] SLICE_X46Y100 SLICE_X46Y100/CX
+      pin data_out[31]_i_35/I0 SLICE_X48Y101 SLICE_X48Y101/B5
+      pin data_out[31]_i_75/I0 SLICE_X46Y100 SLICE_X46Y100/C4
+      pin color[31]_i_1/I2 SLICE_X50Y101 SLICE_X50Y101/B4
+      pin data_out[31]_i_39/I3 SLICE_X48Y101 SLICE_X48Y101/B5
+      pin width[11]_i_3/I5 SLICE_X50Y101 SLICE_X50Y101/A6
+    end connections
+  end input
+  begin input
+    name y[3]
+    netname y[3]
+    numprims 6
+    type input signal
+    maxdelay 4.392
+    begin connections
+      pin y_out_reg[3]/D SLICE_X51Y100 SLICE_X51Y100/CX
+      pin data_out_reg[31]_i_62/DI[3] SLICE_X46Y100 SLICE_X46Y100/DX
+      pin data_out[31]_i_74/I0 SLICE_X46Y100 SLICE_X46Y100/D4
+      pin width[11]_i_6/I0 SLICE_X50Y101 SLICE_X50Y101/D2
+      pin data_out[31]_i_39/I1 SLICE_X48Y101 SLICE_X48Y101/B3
+      pin data_out[31]_i_35/I3 SLICE_X48Y101 SLICE_X48Y101/B3
+    end connections
+  end input
+  begin input
+    name y[4]
+    netname y[4]
+    numprims 6
+    type input signal
+    maxdelay 4.275
+    begin connections
+      pin y_out_reg[4]/D SLICE_X51Y100 SLICE_X51Y100/DX
+      pin data_out_reg[31]_i_47/DI[0] SLICE_X46Y101 SLICE_X46Y101/AX
+      pin data_out[31]_i_34/I0 SLICE_X48Y101 SLICE_X48Y101/C5
+      pin data_out[31]_i_66/I0 SLICE_X46Y101 SLICE_X46Y101/A4
+      pin data_out[31]_i_38/I3 SLICE_X48Y101 SLICE_X48Y101/C5
+      pin width[11]_i_6/I3 SLICE_X50Y101 SLICE_X50Y101/D5
+    end connections
+  end input
+  begin input
+    name y[5]
+    netname y[5]
+    numprims 6
+    type input signal
+    maxdelay 4.295
+    begin connections
+      pin y_out_reg[5]/D SLICE_X48Y100 SLICE_X48Y100/DX
+      pin data_out_reg[31]_i_47/DI[1] SLICE_X46Y101 SLICE_X46Y101/BX
+      pin data_out[31]_i_65/I0 SLICE_X46Y101 SLICE_X46Y101/B4
+      pin data_out[31]_i_38/I1 SLICE_X48Y101 SLICE_X48Y101/C3
+      pin data_out[31]_i_34/I3 SLICE_X48Y101 SLICE_X48Y101/C3
+      pin width[11]_i_6/I4 SLICE_X50Y101 SLICE_X50Y101/D6
+    end connections
+  end input
+  begin input
+    name y[6]
+    netname y[6]
+    numprims 7
+    type input signal
+    maxdelay 4.243
+    begin connections
+      pin y_out_reg[6]/D SLICE_X49Y101 SLICE_X49Y101/CX
+      pin data_out_reg[31]_i_47/DI[2] SLICE_X46Y101 SLICE_X46Y101/CX
+      pin data_out[31]_i_33/I0 SLICE_X48Y101 SLICE_X48Y101/D5
+      pin data_out[31]_i_64/I0 SLICE_X46Y101 SLICE_X46Y101/C4
+      pin width[11]_i_3/I0 SLICE_X50Y101 SLICE_X50Y101/A1
+      pin data_out[31]_i_37/I3 SLICE_X48Y101 SLICE_X48Y101/D5
+      pin color[31]_i_2/I4 SLICE_X50Y101 SLICE_X50Y101/C6
+    end connections
+  end input
+  begin input
+    name y[7]
+    netname y[7]
+    numprims 7
+    type input signal
+    maxdelay 4.243
+    begin connections
+      pin y_out_reg[7]/D SLICE_X49Y101 SLICE_X49Y101/DX
+      pin data_out_reg[31]_i_47/DI[3] SLICE_X46Y101 SLICE_X46Y101/DX
+      pin data_out[31]_i_63/I0 SLICE_X46Y101 SLICE_X46Y101/D4
+      pin data_out[31]_i_37/I1 SLICE_X48Y101 SLICE_X48Y101/D3
+      pin width[11]_i_3/I1 SLICE_X50Y101 SLICE_X50Y101/A2
+      pin color[31]_i_2/I3 SLICE_X50Y101 SLICE_X50Y101/C5
+      pin data_out[31]_i_33/I3 SLICE_X48Y101 SLICE_X48Y101/D3
+    end connections
+  end input
+  begin input
+    name y[8]
+    netname y[8]
+    numprims 7
+    type input signal
+    maxdelay 4.158
+    begin connections
+      pin y_out_reg[8]/D SLICE_X49Y101 SLICE_X49Y101/AX
+      pin data_out_reg[31]_i_23/DI[0] SLICE_X46Y102 SLICE_X46Y102/AX
+      pin data_out[31]_i_14/I0 SLICE_X48Y102 SLICE_X48Y102/A5
+      pin data_out[31]_i_51/I0 SLICE_X46Y102 SLICE_X46Y102/A4
+      pin color[31]_i_2/I2 SLICE_X50Y101 SLICE_X50Y101/C4
+      pin width[11]_i_3/I2 SLICE_X50Y101 SLICE_X50Y101/A3
+      pin data_out[31]_i_17/I3 SLICE_X48Y102 SLICE_X48Y102/A5
+    end connections
+  end input
+  begin input
+    name y[9]
+    netname y[9]
+    numprims 7
+    type input signal
+    maxdelay 4.178
+    begin connections
+      pin y_out_reg[9]/D SLICE_X49Y101 SLICE_X49Y101/BX
+      pin data_out_reg[31]_i_23/DI[1] SLICE_X46Y102 SLICE_X46Y102/BX
+      pin data_out[31]_i_50/I0 SLICE_X46Y102 SLICE_X46Y102/B4
+      pin color[31]_i_2/I1 SLICE_X50Y101 SLICE_X50Y101/C3
+      pin data_out[31]_i_17/I1 SLICE_X48Y102 SLICE_X48Y102/A3
+      pin data_out[31]_i_14/I3 SLICE_X48Y102 SLICE_X48Y102/A3
+      pin width[11]_i_3/I3 SLICE_X50Y101 SLICE_X50Y101/A4
+    end connections
+  end input
+
+  begin output
+    name data_out[0]
+    netname data_out[0]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[0]/Q SLICE_X51Y103 SLICE_X51Y103/AQ
+    end connections
+  end output
+  begin output
+    name data_out[10]
+    netname data_out[10]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[10]/Q SLICE_X47Y104 SLICE_X47Y104/AQ
+    end connections
+  end output
+  begin output
+    name data_out[11]
+    netname data_out[11]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[11]/Q SLICE_X47Y104 SLICE_X47Y104/AMUX
+    end connections
+  end output
+  begin output
+    name data_out[12]
+    netname data_out[12]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[12]/Q SLICE_X47Y104 SLICE_X47Y104/BQ
+    end connections
+  end output
+  begin output
+    name data_out[13]
+    netname data_out[13]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[13]/Q SLICE_X47Y104 SLICE_X47Y104/BMUX
+    end connections
+  end output
+  begin output
+    name data_out[14]
+    netname data_out[14]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[14]/Q SLICE_X47Y104 SLICE_X47Y104/CQ
+    end connections
+  end output
+  begin output
+    name data_out[15]
+    netname data_out[15]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[15]/Q SLICE_X47Y104 SLICE_X47Y104/CMUX
+    end connections
+  end output
+  begin output
+    name data_out[16]
+    netname data_out[16]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[16]/Q SLICE_X47Y104 SLICE_X47Y104/DQ
+    end connections
+  end output
+  begin output
+    name data_out[17]
+    netname data_out[17]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[17]/Q SLICE_X47Y104 SLICE_X47Y104/DMUX
+    end connections
+  end output
+  begin output
+    name data_out[18]
+    netname data_out[18]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[18]/Q SLICE_X51Y101 SLICE_X51Y101/AQ
+    end connections
+  end output
+  begin output
+    name data_out[19]
+    netname data_out[19]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[19]/Q SLICE_X51Y101 SLICE_X51Y101/AMUX
+    end connections
+  end output
+  begin output
+    name data_out[1]
+    netname data_out[1]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[1]/Q SLICE_X51Y103 SLICE_X51Y103/AMUX
+    end connections
+  end output
+  begin output
+    name data_out[20]
+    netname data_out[20]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[20]/Q SLICE_X51Y101 SLICE_X51Y101/BQ
+    end connections
+  end output
+  begin output
+    name data_out[21]
+    netname data_out[21]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[21]/Q SLICE_X51Y101 SLICE_X51Y101/BMUX
+    end connections
+  end output
+  begin output
+    name data_out[22]
+    netname data_out[22]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[22]/Q SLICE_X51Y101 SLICE_X51Y101/CQ
+    end connections
+  end output
+  begin output
+    name data_out[23]
+    netname data_out[23]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[23]/Q SLICE_X51Y101 SLICE_X51Y101/CMUX
+    end connections
+  end output
+  begin output
+    name data_out[24]
+    netname data_out[24]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[24]/Q SLICE_X51Y103 SLICE_X51Y103/BQ
+    end connections
+  end output
+  begin output
+    name data_out[25]
+    netname data_out[25]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[25]/Q SLICE_X51Y103 SLICE_X51Y103/BMUX
+    end connections
+  end output
+  begin output
+    name data_out[26]
+    netname data_out[26]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[26]/Q SLICE_X51Y100 SLICE_X51Y100/AQ
+    end connections
+  end output
+  begin output
+    name data_out[27]
+    netname data_out[27]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[27]/Q SLICE_X51Y100 SLICE_X51Y100/AMUX
+    end connections
+  end output
+  begin output
+    name data_out[28]
+    netname data_out[28]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[28]/Q SLICE_X49Y100 SLICE_X49Y100/AQ
+    end connections
+  end output
+  begin output
+    name data_out[29]
+    netname data_out[29]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[29]/Q SLICE_X49Y100 SLICE_X49Y100/AMUX
+    end connections
+  end output
+  begin output
+    name data_out[2]
+    netname data_out[2]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[2]/Q SLICE_X51Y103 SLICE_X51Y103/CQ
+    end connections
+  end output
+  begin output
+    name data_out[30]
+    netname data_out[30]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[30]/Q SLICE_X49Y100 SLICE_X49Y100/BQ
+    end connections
+  end output
+  begin output
+    name data_out[31]
+    netname data_out[31]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[31]/Q SLICE_X49Y100 SLICE_X49Y100/BMUX
+    end connections
+  end output
+  begin output
+    name data_out[3]
+    netname data_out[3]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[3]/Q SLICE_X51Y103 SLICE_X51Y103/CMUX
+    end connections
+  end output
+  begin output
+    name data_out[4]
+    netname data_out[4]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[4]/Q SLICE_X51Y101 SLICE_X51Y101/DQ
+    end connections
+  end output
+  begin output
+    name data_out[5]
+    netname data_out[5]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[5]/Q SLICE_X51Y101 SLICE_X51Y101/DMUX
+    end connections
+  end output
+  begin output
+    name data_out[6]
+    netname data_out[6]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[6]/Q SLICE_X49Y100 SLICE_X49Y100/CQ
+    end connections
+  end output
+  begin output
+    name data_out[7]
+    netname data_out[7]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[7]/Q SLICE_X49Y100 SLICE_X49Y100/CMUX
+    end connections
+  end output
+  begin output
+    name data_out[8]
+    netname data_out[8]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin data_out_reg[8]/Q SLICE_X51Y103 SLICE_X51Y103/DQ
+    end connections
+  end output
+  begin output
+    name data_out[9]
+    netname data_out[9]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin data_out_reg[9]/Q SLICE_X51Y103 SLICE_X51Y103/DMUX
+    end connections
+  end output
+  begin output
+    name program_out
+    netname program_out
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin program_out_reg/Q SLICE_X48Y101 SLICE_X48Y101/AQ
+    end connections
+  end output
+  begin output
+    name x_out[0]
+    netname x_out[0]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin x_out_reg[0]/Q SLICE_X48Y101 SLICE_X48Y101/BQ
+    end connections
+  end output
+  begin output
+    name x_out[10]
+    netname x_out[10]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin x_out_reg[10]/Q SLICE_X48Y100 SLICE_X48Y100/AQ
+    end connections
+  end output
+  begin output
+    name x_out[1]
+    netname x_out[1]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin x_out_reg[1]/Q SLICE_X48Y100 SLICE_X48Y100/BQ
+    end connections
+  end output
+  begin output
+    name x_out[2]
+    netname x_out[2]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin x_out_reg[2]/Q SLICE_X48Y100 SLICE_X48Y100/CQ
+    end connections
+  end output
+  begin output
+    name x_out[3]
+    netname x_out[3]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin x_out_reg[3]/Q SLICE_X48Y100 SLICE_X48Y100/DQ
+    end connections
+  end output
+  begin output
+    name x_out[4]
+    netname x_out[4]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin x_out_reg[4]/Q SLICE_X48Y100 SLICE_X48Y100/AMUX
+    end connections
+  end output
+  begin output
+    name x_out[5]
+    netname x_out[5]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin x_out_reg[5]/Q SLICE_X48Y100 SLICE_X48Y100/BMUX
+    end connections
+  end output
+  begin output
+    name x_out[6]
+    netname x_out[6]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin x_out_reg[6]/Q SLICE_X48Y100 SLICE_X48Y100/CMUX
+    end connections
+  end output
+  begin output
+    name x_out[7]
+    netname x_out[7]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin x_out_reg[7]/Q SLICE_X48Y101 SLICE_X48Y101/CQ
+    end connections
+  end output
+  begin output
+    name x_out[8]
+    netname x_out[8]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin x_out_reg[8]/Q SLICE_X48Y101 SLICE_X48Y101/DQ
+    end connections
+  end output
+  begin output
+    name x_out[9]
+    netname x_out[9]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin x_out_reg[9]/Q SLICE_X51Y100 SLICE_X51Y100/BQ
+    end connections
+  end output
+  begin output
+    name y_out[0]
+    netname y_out[0]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin y_out_reg[0]/Q SLICE_X49Y101 SLICE_X49Y101/AQ
+    end connections
+  end output
+  begin output
+    name y_out[10]
+    netname y_out[10]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin y_out_reg[10]/Q SLICE_X49Y101 SLICE_X49Y101/BQ
+    end connections
+  end output
+  begin output
+    name y_out[11]
+    netname y_out[11]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin y_out_reg[11]/Q SLICE_X51Y100 SLICE_X51Y100/CQ
+    end connections
+  end output
+  begin output
+    name y_out[1]
+    netname y_out[1]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin y_out_reg[1]/Q SLICE_X51Y100 SLICE_X51Y100/DQ
+    end connections
+  end output
+  begin output
+    name y_out[2]
+    netname y_out[2]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin y_out_reg[2]/Q SLICE_X51Y100 SLICE_X51Y100/BMUX
+    end connections
+  end output
+  begin output
+    name y_out[3]
+    netname y_out[3]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin y_out_reg[3]/Q SLICE_X51Y100 SLICE_X51Y100/CMUX
+    end connections
+  end output
+  begin output
+    name y_out[4]
+    netname y_out[4]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin y_out_reg[4]/Q SLICE_X51Y100 SLICE_X51Y100/DMUX
+    end connections
+  end output
+  begin output
+    name y_out[5]
+    netname y_out[5]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin y_out_reg[5]/Q SLICE_X48Y100 SLICE_X48Y100/DMUX
+    end connections
+  end output
+  begin output
+    name y_out[6]
+    netname y_out[6]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin y_out_reg[6]/Q SLICE_X49Y101 SLICE_X49Y101/CQ
+    end connections
+  end output
+  begin output
+    name y_out[7]
+    netname y_out[7]
+    numprims 1
+    type output signal
+    maxdelay 1.429
+    begin connections
+      pin y_out_reg[7]/Q SLICE_X49Y101 SLICE_X49Y101/DQ
+    end connections
+  end output
+  begin output
+    name y_out[8]
+    netname y_out[8]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin y_out_reg[8]/Q SLICE_X49Y101 SLICE_X49Y101/AMUX
+    end connections
+  end output
+  begin output
+    name y_out[9]
+    netname y_out[9]
+    numprims 1
+    type output signal
+    maxdelay 1.392
+    begin connections
+      pin y_out_reg[9]/Q SLICE_X49Y101 SLICE_X49Y101/BMUX
+    end connections
+  end output
+
+end block
