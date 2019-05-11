@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
+
 import com.xilinx.rapidwright.design.Design;
 import com.xilinx.rapidwright.design.Module;
 import com.xilinx.rapidwright.design.ModuleInst;
@@ -137,8 +138,8 @@ public class DottyStitcher {
 	}
 	
 	public static void main(String[] args) {
-		if(args.length != 4) {
-			System.out.println("USAGE: <dot file> <rectangle.dcp> <ellipse.dcp> <output.dcp>");
+		if(args.length != 3) {
+			System.out.println("USAGE: <dot file> <components list file> <output.dcp>");
 			return;
 		}
 		
@@ -146,13 +147,18 @@ public class DottyStitcher {
 		
 		t.start("Reading Module DCPs");
 		// Load and create modules
-		Module rectangle = loadModule(args[1]);  
-		Module ellipse   = loadModule(args[2]);
-		// Map DCP modules to names in dot file
 		Map<String,Module> modules = new HashMap<>();
-		modules.put("Rectangle", rectangle);
-		modules.put("Ellipse", ellipse);
-		
+		for(String line : FileTools.getLinesFromTextFile(args[1])) {
+			line = line.replaceAll("\\s+", "");
+			if(line.length() == 0) continue;
+			if(line.startsWith("#")) continue;
+			String[] component_info = line.split(";");
+			String dcp_loc = component_info[2] + component_info[0] + ".dcp";
+			Module module = loadModule(dcp_loc);
+			modules.put(component_info[0], module);
+
+		}
+
 		// Stitch blocks together according to Dotty Graph
 		t.stop().start("Stitch Design");
 		Design design = createDesignFromDotty(args[0], "xc7a100tcsg324-1", modules);
@@ -180,7 +186,7 @@ public class DottyStitcher {
 		t.stop().start("Write output DCP");
 		design.setAutoIOBuffers(false);
 		design.setDesignOutOfContext(true);
-		design.writeCheckpoint(args[3], CodePerfTracker.SILENT);
+		design.writeCheckpoint(args[2], CodePerfTracker.SILENT);
 		t.stop().printSummary();
 	}
 }
