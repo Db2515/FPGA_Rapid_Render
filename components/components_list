@@ -1,0 +1,2 @@
+#Shape_Name;xpr_location;module_files_location;pblock_area
+Rectangle;/home/dan/FPGA_Rapid_Render/components/rect_renderer/vivado_project/rect_renderer.xpr;/home/dan/FPGA_Rapid_Render/components/rect_renderer/out/;SLICE_X46Y100:SLICE_X50Y104
