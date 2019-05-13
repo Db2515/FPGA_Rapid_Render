@@ -1,4 +1,4 @@
-module rect_renderer #(parameter SHAPE_ID = 0)
+module rect_renderer
     (input clk,
      input program_in,
      input [10:0] x, 
@@ -24,7 +24,7 @@ module rect_renderer #(parameter SHAPE_ID = 0)
     //Inputs
     always @(posedge clk) 
     begin
-        if (program_in && x == SHAPE_ID)
+        if (program_in && x == 0)
             //Change reg with ID = to y
             begin
                 if (y == 0) begin
@@ -47,7 +47,11 @@ module rect_renderer #(parameter SHAPE_ID = 0)
     
     always @(posedge clk) begin
         program_out <= program_in;
-        x_out <= x;
+        if (program_in) begin
+            x_out <= x - 1;
+        end else begin
+            x_out <= x;
+        end
         y_out <= y;
             
         // If program_in  != 0 we are reprogramming a shape so pass inputs through
