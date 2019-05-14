@@ -38,20 +38,88 @@ module ellipse_renderer
     reg [11:0] height_rad = 0;  //Reg_ID = 3
     reg [31:0] color = ~0;  //Red_ID = 4 Default color = white
     
+    reg [23:0] height_rad_sqrd;
+    reg [23:0] translatedX_sqrd;
+    reg [23:0] width_rad_sqrd;
+    reg [23:0] translatedY_sqrd;
     
-    wire [10:0] TranslatedX = x > x_coord ? x - x_coord : x_coord - x;
-    wire [11:0] TranslatedY = y > y_coord ? y - y_coord : y_coord - y;
+    reg [47:0] height_calc;
+    reg [47:0] width_calc;
     
-    wire [50:0] calc = ((height_rad * height_rad * TranslatedX * TranslatedX)
-                    + (width_rad * width_rad * TranslatedY * TranslatedY));
-    wire [48:0] bound = (width_rad * width_rad * height_rad * height_rad);
+    reg [49:0] calc;
+    reg [47:0] bound[1:0];
     
-    wire inshape  = calc <= bound;
+    reg program_tmp[3:0];
+    reg [10:0] x_tmp[3:0];
+    reg [11:0] y_tmp[3:0];
+    reg [32:0] data_tmp[3:0];
+    
+    reg [10:0] TranslatedX;
+    reg [11:0] TranslatedY;
+    
+//    wire [50:0] calc = ((height_rad * height_rad * TranslatedX * TranslatedX)
+//                    + (width_rad * width_rad * TranslatedY * TranslatedY));
+//    wire [48:0] bound = (width_rad * width_rad * height_rad * height_rad);
+    
+    wire inshape  = calc <= bound[1];
+    
+    always @(posedge clk) begin
+        TranslatedX <= x > x_coord ? x - x_coord : x_coord - x;
+        TranslatedY <= y > y_coord ? y - y_coord : y_coord - y;
+        
+        program_tmp[0] <= program_in;
+        if (program_in) begin
+            x_tmp[0] <= x - 1;
+       end else begin
+            x_tmp[0] <= x;
+        end
+        y_tmp[0] <= y;
+        data_tmp[0] <= data_in;
+    end
                     
+    //Outputs
+    always @(posedge clk) begin
+        height_rad_sqrd <= height_rad * height_rad;
+        translatedX_sqrd <= TranslatedX * TranslatedX;
+        width_rad_sqrd <= width_rad * width_rad;
+        translatedY_sqrd <= TranslatedY * TranslatedY;
+        
+        program_tmp[1] <= program_tmp[0];
+        x_tmp[1] <= x_tmp[0];
+        y_tmp[1] <= y_tmp[0];
+        data_tmp[1] <= data_tmp[0];
+    end
     
+    always @(posedge clk) begin
+        height_calc <= height_rad_sqrd * translatedX_sqrd;
+        width_calc <= width_rad_sqrd * translatedY_sqrd;
+        bound[0] <= height_rad_sqrd * width_rad_sqrd;
+        
+        program_tmp[2] <= program_tmp[1];
+        x_tmp[2] <= x_tmp[1];
+        y_tmp[2] <= y_tmp[1];
+        data_tmp[2] <= data_tmp[1];
+    end
+    
+    always @(posedge clk) begin
+        calc <= height_calc + width_calc;
+        bound[1] <= bound[0];
+        
+        program_tmp[3] <= program_tmp[2];
+        x_tmp[3] <= x_tmp[2];
+        y_tmp[3] <= y_tmp[2];
+        data_tmp[3] <= data_tmp[2];
+    end
+    
+    always @(posedge clk) begin
+        program_out <= program_tmp[3];
+        x_out <= x_tmp[3];
+        y_out <= y_tmp[3];
+        data_out <= !program_tmp[3] && inshape ? color : data_tmp[3];
+    end
+  
     //Inputs
-    always @(posedge clk) 
-    begin
+    always @(posedge clk) begin
         if (program_in && x == 0)
             //Change reg with ID = to y
             begin
@@ -73,18 +141,4 @@ module ellipse_renderer
             end
     end
     
-    always @(posedge clk) begin
-        program_out <= program_in ;
-        if(program_in) begin
-            x_out <= x - 1;
-        end
-        else begin
-            x_out <= x;
-        end
-        y_out <= y;
-            
-        // If program_in  != 0 we are reprogramming a shape so pass inputs through
-        
-        data_out <= !program_in && inshape ? color : data_in;
-    end
 endmodule
