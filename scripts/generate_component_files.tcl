@@ -24,9 +24,9 @@ foreach line $lines {
 		puts "Creating files for $shape_name component"
 		open_project $project_loc
 		update_compile_order -fileset sources_1
-		reset_run synth_1; launch_runs synth_1; wait_on_run synth_1
-		open_run synth_1 -name synth_1
-		place_design -unplace; place_design	
+		reset_run synth_1 
+		synth_design -mode out_of_context
+		place_design	
 		set_property CONTAIN_ROUTING 1 [get_pblocks pblock_1]
 		route_design
 		write_checkpoint -force "$output_dir/$shape_name.dcp"
