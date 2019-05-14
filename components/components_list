@@ -1,2 +1,3 @@
 #Shape_Name;xpr_location;module_files_location
 Rectangle;/home/dan/FPGA_Rapid_Render/components/rect_renderer/vivado_project/rect_renderer.xpr;/home/dan/FPGA_Rapid_Render/components/rect_renderer/out/
+Ellipse;/home/dan/FPGA_Rapid_Render/components/ellipse_renderer/vivado_project/ellipse_renderer.xpr;/home/dan/FPGA_Rapid_Render/components/ellipse_renderer/out/
