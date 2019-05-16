@@ -2,6 +2,7 @@ vivado_project/
 *.edf
 vivado*.log
 vivado*.jou
+module_design/
 
 # Created by https://www.gitignore.io/api/intellij
 # Edit at https://www.gitignore.io/?templates=intellij
