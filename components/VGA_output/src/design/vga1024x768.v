@@ -7,14 +7,15 @@
 
 `default_nettype none
 
-module vga800x600(
+module vga1024x768(
     input wire i_clk,           // base clock
-    input wire i_pix_stb,       // pixel clock strobe
+    input wire i_pix_clk,       // pixel clock strobe
     input wire i_rst,           // reset: restarts frame
     output wire o_hs,           // horizontal sync
     output wire o_vs,           // vertical sync
     output wire o_blanking,     // high during blanking interval
     output wire o_active,       // high during active pixel drawing
+    output wire o_lineend,      // high for one tick at the end of a line
     output wire o_screenend,    // high for one tick at the end of screen
     output wire o_animate,      // high for one tick at end of active drawing
     output wire [10:0] o_x,     // current pixel x position
@@ -22,15 +23,31 @@ module vga800x600(
     );
 
     // VGA timings https://timetoexplore.net/blog/video-timings-vga-720p-1080p
-    localparam HS_STA = 40;              // horizontal sync start
-    localparam HS_END = 40 + 128;        // horizontal sync end
-    localparam HA_STA = 40 + 128 + 88;   // horizontal active pixel start
-    localparam VS_STA = 600 + 1;         // vertical sync start
-    localparam VS_END = 600 + 1 + 4;     // vertical sync end
-    localparam VA_END = 600;             // vertical active pixel end
-    localparam LINE   = 1056;            // complete line (pixels)
-    localparam SCREEN = 628;             // complete screen (lines)
-
+    localparam H_ACTIVE_PIXELS  = 1024;
+    localparam H_FRONT_PORCH    = 24;
+    localparam H_SYNC_WIDTH     = 136;
+    localparam H_BACK_PORCH     = 160;
+    
+    localparam LINE             = H_ACTIVE_PIXELS + H_FRONT_PORCH
+                                    + H_SYNC_WIDTH + H_BACK_PORCH; 
+    
+    localparam HS_STA = H_FRONT_PORCH;              // horizontal sync start
+    localparam HS_END = HS_STA + H_SYNC_WIDTH;      // horizontal sync end
+    localparam HA_STA = HS_END + H_BACK_PORCH;      // horizontal active pixel start
+    
+    localparam V_ACTIVE_PIXELS  = 768;
+    localparam V_FRONT_PORCH    = 3;
+    localparam V_SYNC_WIDTH     = 6;
+    localparam V_BACK_PORCH     = 29;
+    
+    localparam SCREEN           = V_ACTIVE_PIXELS + V_FRONT_PORCH
+                                    + V_SYNC_WIDTH + V_BACK_PORCH;
+    
+    localparam VS_STA = V_ACTIVE_PIXELS + V_FRONT_PORCH;    // vertical sync start
+    localparam VS_END = VS_STA + V_SYNC_WIDTH;              // vertical sync end
+    localparam VA_END = V_ACTIVE_PIXELS;                    // vertical active pixel end
+    
+    
     reg [10:0] h_count; // line position
     reg  [9:0] v_count; // screen position
 
@@ -48,6 +65,9 @@ module vga800x600(
     // active: high during active pixel drawing
     assign o_active = ~((h_count < HA_STA) | (v_count > VA_END - 1)); 
 
+    // lineend: high for one tick at the end of a line
+    assign o_lineend = h_count == LINE;
+
     // screenend: high for one tick at the end of the screen
     assign o_screenend = ((v_count == SCREEN - 1) & (h_count == LINE));
 
@@ -61,7 +81,7 @@ module vga800x600(
             h_count <= 0;
             v_count <= 0;
         end
-        if (i_pix_stb)  // once per pixel
+        if (i_pix_clk)  // once per pixel
         begin
             if (h_count == LINE)  // end of line
             begin
