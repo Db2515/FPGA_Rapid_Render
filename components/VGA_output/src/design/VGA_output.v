@@ -20,16 +20,21 @@
 //////////////////////////////////////////////////////////////////////////////////
 // Credit to the tutorial https://timetoexplore.net/blog/arty-fpga-vga-verilog-01
 
-module VGA_output(input wire CLK,                // Base clock
-                  input wire RST_BTN,              // Reset: restarts frame
-                  output wire VGA_HS_OUT,    // Horizontal sync output
-                  output wire VGA_VS_OUT,    // Vertical sync output
-                  output wire [3:0] VGA_R,   // 4-bit VGA red output
-                  output wire [3:0] VGA_G,   // 4-bit VGA green output
-                  output wire [3:0] VGA_B    // 4-bit VGA blue output  
+module VGA_output(input wire CLK,               // Base clock
+                  input wire RST,               // Reset: restarts frame
+                  input wire program_in,
+                  input wire [10:0] x,
+                  input wire [11:0] y,
+                  input wire [11:0] data_in,
+                  output wire VGA_HS_OUT,       // Horizontal sync output
+                  output wire VGA_VS_OUT,       // Vertical sync output
+                  output reg [3:0] VGA_R,       // 4-bit VGA red output
+                  output reg [3:0] VGA_G,       // 4-bit VGA green output
+                  output reg [3:0] VGA_B,       // 4-bit VGA blue output
+                  output wire VGA_LINEEND_OUT  // Signal during blanking at the end of the line  
     );
     
-    wire rst = RST_BTN;  // reset is active high on Basys3 (BTNC)
+    wire rst = RST;  // reset is active high on Basys3 (BTNC)
     
     reg [15:0] cnt;
     reg pix_stb;
@@ -38,8 +43,8 @@ module VGA_output(input wire CLK,                // Base clock
         {pix_stb, cnt} <= cnt + 16'hA666;  // (2^16)/(100/65) = 0xA666
     end
     
-    wire [10:0] x;  // current pixel x position: 10-bit value: 0-1023
-    wire [9:0] y;  // current pixel y position:  9-bit value: 0-511
+    wire [10:0] vga_x;  // current pixel x position: 10-bit value: 0-1023
+    wire [9:0] vga_y;  // current pixel y position:  9-bit value: 0-511
     
     vga1024x768 display (
         .i_clk(CLK),
@@ -47,19 +52,58 @@ module VGA_output(input wire CLK,                // Base clock
         .i_rst(rst),
         .o_hs(VGA_HS_OUT), 
         .o_vs(VGA_VS_OUT),
-        .o_x(x), 
-        .o_y(y)
+        .o_x(vga_x), 
+        .o_y(vga_y),
+        .o_lineend(VGA_LINEEND_OUT)
     );
-     
-    wire sq_a, sq_b, sq_c, sq_d;
-    assign sq_a = ((x > 120) & (y >  40) & (x < 280) & (y < 200)) ? 1 : 0;
-    assign sq_b = ((x > 200) & (y > 120) & (x < 360) & (y < 280)) ? 1 : 0;
-    assign sq_c = ((x > 280) & (y > 200) & (x < 440) & (y < 360)) ? 1 : 0;
-    assign sq_d = ((x > 360) & (y > 280) & (x < 520) & (y < 440)) ? 1 : 0;
-
-    assign VGA_R[3] = sq_b;         // square b is red
-    assign VGA_G[3] = sq_a | sq_d;  // squares a and d are green
-    assign VGA_B[3] = sq_c;         // square c is blue
+    
+    //VRAM frame buffers (read-write)
+    localparam SCREEN_WIDTH = 1024;
+    localparam SCREEN_HEIGHT = 768;
+    localparam VRAM_DEPTH   = SCREEN_WIDTH;
+    localparam VRAM_A_WIDTH = 10;
+    localparam VRAM_D_WIDTH = 12;
+    
+    reg [VRAM_A_WIDTH-1:0] read_address;
+    wire [VRAM_D_WIDTH-1:0] vram_data_out;
+    reg [VRAM_A_WIDTH-1:0] write_address;
+    reg [VRAM_D_WIDTH-1:0] vram_data_in;
+   
+    sram #(
+        .ADDR_WIDTH(VRAM_A_WIDTH), 
+        .DATA_WIDTH(VRAM_D_WIDTH), 
+        .DEPTH(VRAM_DEPTH))
+        vram (
+        .i_clk(CLK),
+        .i_read(1),                     // Read every clock cycle   
+        .i_read_addr(read_address),
+        .i_write(1),                    // Write every clock cycle
+        .i_write_addr(write_address),
+        .i_data(vram_data_in),
+        .o_data(vram_data_out)    
+    );
+    
+    reg [11:0] color;
+    
+    
+    always @(posedge CLK) begin
+        if (!program_in) begin
+            write_address <= x;
+            vram_data_in <= data_in;
+        end
+        if (pix_stb) begin
+            read_address <= vga_x;
+            color <= vram_data_out; 
+        
+            VGA_R <= ((vga_x > 0) & (vga_y >  0) 
+                        & (vga_x < SCREEN_WIDTH) & (vga_y < SCREEN_HEIGHT)) ? color[11:8] : 0;
+            VGA_G <= ((vga_x > 0) & (vga_y >  0) 
+                        & (vga_x < SCREEN_WIDTH) & (vga_y < SCREEN_HEIGHT)) ? color[7:4] : 0;
+            VGA_B <= ((vga_x > 0) & (vga_y >  0) 
+                        & (vga_x < SCREEN_WIDTH) & (vga_y < SCREEN_HEIGHT)) ? color[3:0] : 0;
+        end
+    end
+    
 
         
 endmodule
