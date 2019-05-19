@@ -1,3 +1,5 @@
+create_clock -period 10.000 -name sys_clk_pin -add [get_ports CLK]
+
 create_pblock pblock_1
 add_cells_to_pblock [get_pblocks pblock_1] -top
 resize_pblock [get_pblocks pblock_1] -add {SLICE_X4Y107:SLICE_X9Y114}
