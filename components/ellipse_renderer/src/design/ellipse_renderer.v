@@ -25,18 +25,18 @@ module ellipse_renderer
      input program_in,
      input [10:0] x, 
      input [11:0] y,
-     input[31:0] data_in,
+     input[11:0] data_in,
      output reg program_out,
      output reg [10:0] x_out,
      output reg [11:0] y_out,
-     output reg [31:0] data_out
+     output reg [11:0] data_out
      );
      
     reg [10:0] x_coord = 0;  //Reg_ID = 0
     reg [11:0] y_coord = 0;  //Reg_ID = 1
     reg [10:0] width_rad = 0;   //Reg_ID = 2
     reg [11:0] height_rad = 0;  //Reg_ID = 3
-    reg [31:0] color = ~0;  //Red_ID = 4 Default color = white
+    reg [11:0] color = ~0;  //Red_ID = 4 Default color = white
     
     reg [23:0] height_rad_sqrd;
     reg [23:0] translatedX_sqrd;
@@ -52,7 +52,7 @@ module ellipse_renderer
     reg program_tmp[3:0];
     reg [10:0] x_tmp[3:0];
     reg [11:0] y_tmp[3:0];
-    reg [32:0] data_tmp[3:0];
+    reg [11:0] data_tmp[3:0];
     
     reg [10:0] TranslatedX;
     reg [11:0] TranslatedY;
