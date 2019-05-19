@@ -161,7 +161,7 @@ public class DottyStitcher {
 
 		// Stitch blocks together according to Dotty Graph
 		t.stop().start("Stitch Design");
-		Design design = createDesignFromDotty(args[0], "xc7a100tcsg324-1", modules);
+		Design design = createDesignFromDotty(args[0], "xc7a35tcpg236-1", modules);
 		
 		// Place the blocks
 		t.stop().start("Block Placer");
