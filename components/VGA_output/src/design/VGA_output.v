@@ -34,7 +34,7 @@ module VGA_output(input wire CLK,               // Base clock
                   output wire VGA_LINEEND_OUT  // Signal during blanking at the end of the line  
     );
     
-    wire rst = RST;  // reset is active high on Basys3 (BTNC)
+    wire rst = RST | program_in;  // Reset on button press or after reconfiguration
     
     reg [15:0] cnt;
     reg pix_stb;
