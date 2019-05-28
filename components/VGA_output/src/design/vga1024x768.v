@@ -51,7 +51,7 @@ module vga1024x768(
     reg [10:0] h_count; // line position
     reg  [9:0] v_count; // screen position
 
-    // generate sync signals (active high for 800x600)
+    // generate sync signals
     assign o_hs = ((h_count >= HS_STA) & (h_count < HS_END));
     assign o_vs = ((v_count >= VS_STA) & (v_count < VS_END));
 

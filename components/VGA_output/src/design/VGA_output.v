@@ -23,14 +23,14 @@
 module VGA_output(input wire CLK,               // Base clock
                   input wire RST,               // Reset: restarts frame
                   input wire program_in,
-                  input wire [10:0] x,
-                  input wire [11:0] y,
+                  input wire [9:0] x_in,
+                  input wire [10:0] y_in,
                   input wire [11:0] data_in,
                   output wire VGA_HS_OUT,       // Horizontal sync output
                   output wire VGA_VS_OUT,       // Vertical sync output
-                  output reg [3:0] VGA_R,       // 4-bit VGA red output
-                  output reg [3:0] VGA_G,       // 4-bit VGA green output
-                  output reg [3:0] VGA_B,       // 4-bit VGA blue output
+                  output reg [3:0] VGA_R_OUT,       // 4-bit VGA red output
+                  output reg [3:0] VGA_G_OUT,       // 4-bit VGA green output
+                  output reg [3:0] VGA_B_OUT,       // 4-bit VGA blue output
                   output wire VGA_LINEEND_OUT  // Signal during blanking at the end of the line  
     );
     
@@ -88,18 +88,18 @@ module VGA_output(input wire CLK,               // Base clock
     
     always @(posedge CLK) begin
         if (!program_in) begin
-            write_address <= x;
+            write_address <= x_in;
             vram_data_in <= data_in;
         end
         if (pix_stb) begin
             read_address <= vga_x;
             color <= vram_data_out; 
         
-            VGA_R <= ((vga_x > 0) & (vga_y >  0) 
+            VGA_R_OUT <= ((vga_x > 0) & (vga_y >  0) 
                         & (vga_x < SCREEN_WIDTH) & (vga_y < SCREEN_HEIGHT)) ? color[11:8] : 0;
-            VGA_G <= ((vga_x > 0) & (vga_y >  0) 
+            VGA_G_OUT <= ((vga_x > 0) & (vga_y >  0) 
                         & (vga_x < SCREEN_WIDTH) & (vga_y < SCREEN_HEIGHT)) ? color[7:4] : 0;
-            VGA_B <= ((vga_x > 0) & (vga_y >  0) 
+            VGA_B_OUT <= ((vga_x > 0) & (vga_y >  0) 
                         & (vga_x < SCREEN_WIDTH) & (vga_y < SCREEN_HEIGHT)) ? color[3:0] : 0;
         end
     end
