@@ -1,0 +1,7 @@
+digraph Circuit {
+      Shape0 [label="shape=Rectangle, width=1080, height=1080"];
+      Shape1 [label="shape=Ellipse, color=500, xcoord=540, ycoord=540, width=540, height=540"];
+      Shape2 [label="shape=Ellipse, color=100, xcoord=540, ycoord=540, width=270, height=270"]; 
+
+Shape0 -> Shape1 -> Shape2;
+}
