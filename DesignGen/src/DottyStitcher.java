@@ -20,6 +20,8 @@ import components.Shape;
 
 public class DottyStitcher {
 
+    private static Design design;
+
 	private static String clk = "clk";
 	private static List<String> componentPorts = Arrays.asList("program", "x", "y", "data");
 
@@ -125,7 +127,7 @@ public class DottyStitcher {
 	}
 	*/
 
-	private static ArrayList<RenderComponent> getRenderGraphFromDotty(String dotFile) {
+	private static ArrayList<RenderComponent> getRenderGraphFromDotty(String dotFile, Map<String,Module> modules) {
 
 		ArrayList<RenderComponent> renderComponents = new ArrayList<>();
 		ArrayList<RenderComponent> renderGraph = new ArrayList<>();
@@ -177,6 +179,10 @@ public class DottyStitcher {
 
 				renderComponents.add(new RenderComponent(name, shape,
 														xcoord, ycoord, width, height, color));
+				Module module = modules.get(shape.name());
+				ModuleInst mi = design.createModuleInst(name, module);
+				mi.place(module.getAnchor().getSite());
+
 			} else if(line.contains("->")) {
 				String[] componentNames = line.replace(";", "").replaceAll("\\s+", "").split("->");
 				for (String name: componentNames) {
@@ -193,17 +199,11 @@ public class DottyStitcher {
 		return renderGraph;
 	}
 
-	private static Design createDesignFromRenderGraph(ArrayList<RenderComponent> renderGraph, String partname,
-													  Map<String, Module> modules) {
-		//Set up design
-		Design design = new Design("Circuit", partname);
-		for(Module m: modules.values()){
-			design.getNetlist().migrateCellAndSubCells(m.getNetlist().getTopCell());
-		}
+	private static Design createDesignFromRenderGraph(ArrayList<RenderComponent> renderGraph) {
 		//Connect Input Module to top level ports and first component
-		String moduleInst = "Input";
-        connectTopLevelPortToModule(design, clk, EDIFDirection.INPUT, moduleInst, clk);
-		connectTopLevelPortToModule(design, "serial_input", EDIFDirection.INPUT, moduleInst, "serial_input");
+		//String moduleInst = "Input";
+        //connectTopLevelPortToModule(design, clk, EDIFDirection.INPUT, moduleInst, clk);
+		//connectTopLevelPortToModule(design, "serial_input", EDIFDirection.INPUT, moduleInst, "serial_input");
 		connect(design, "VGA", "VGA_LINEEND_OUT",
 				"Input", "resume");
 		String firstComponentName = renderGraph.get(0).getName();
@@ -216,7 +216,7 @@ public class DottyStitcher {
 		int numComponents = renderGraph.size();
 		for(int i = 0; i < numComponents; i++){
 		    String currentComponentName = renderGraph.get(i).getName();
-		    connectTopLevelPortToModule(design, clk, EDIFDirection.INPUT, currentComponentName, clk);
+		    //connectTopLevelPortToModule(design, clk, EDIFDirection.INPUT, currentComponentName, clk);
 		    String nextComponentName;
 			if (i == numComponents - 1){
 				// Connect output to VGA component
@@ -226,18 +226,21 @@ public class DottyStitcher {
 				nextComponentName = renderGraph.get(i+1).getName();
 			}
 			for (String port:componentPorts) {
+			    if(nextComponentName == "VGA" && port == "y"){
+			    	continue;
+				}
 				String scrPortName = port + "_out";
 				String snkPortName = port + "_in";
 				connect(design, currentComponentName, scrPortName, nextComponentName, snkPortName);
 			}
 		}
 		//Connect VGA output to top level ports
-		moduleInst = "VGA";
-		connectTopLevelPortToModule(design, "VGA_HS_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_HS_OUT");
-		connectTopLevelPortToModule(design, "VGA_VS_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_VS_OUT");
-		connectTopLevelPortToModule(design, "VGA_R_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_R_OUT");
-		connectTopLevelPortToModule(design, "VGA_G_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_G_OUT");
-		connectTopLevelPortToModule(design, "VGA_B_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_B_OUT");
+		//moduleInst = "VGA";
+		//connectTopLevelPortToModule(design, "VGA_HS_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_HS_OUT");
+		//connectTopLevelPortToModule(design, "VGA_VS_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_VS_OUT");
+		//connectTopLevelPortToModule(design, "VGA_R_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_R_OUT");
+		//connectTopLevelPortToModule(design, "VGA_G_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_G_OUT");
+		//connectTopLevelPortToModule(design, "VGA_B_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_B_OUT");
 
 		return design;
 	}
@@ -280,8 +283,22 @@ public class DottyStitcher {
 		t.stop().start("Stitch Design");
 		//Design design = createDesignFromDotty(args[0], "xc7a35tcpg236-1", modules);
 		//Create intermediate graph of render
-		ArrayList<RenderComponent> renderGraph = getRenderGraphFromDotty(args[0]);
-		Design design = createDesignFromRenderGraph(renderGraph, "xc7a35tcpg236-1", modules);
+		design = new Design("Circuit", "xc7a35tcpg236-1");
+		for(Module m : modules.values()) {
+			design.getNetlist().migrateCellAndSubCells(m.getNetlist().getTopCell());
+		}
+
+		// Place input and VGA
+		Module module = modules.get("Input");
+		ModuleInst mi = design.createModuleInst("Input", module);
+		mi.place(module.getAnchor().getSite());
+
+		module = modules.get("VGA");
+		mi = design.createModuleInst("VGA", module);
+		mi.place(module.getAnchor().getSite());
+
+		ArrayList<RenderComponent> renderGraph = getRenderGraphFromDotty(args[0], modules);
+		Design design = createDesignFromRenderGraph(renderGraph);
 		
 		// Place the blocks
 		t.stop().start("Block Placer");
