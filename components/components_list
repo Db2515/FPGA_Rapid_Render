@@ -1,3 +1,6 @@
-#Shape_Name;xpr_location;module_files_location
+#Component_Name;xpr_location;module_files_location
+
 Rectangle;/home/dan/FPGA_Rapid_Render/components/rect_renderer/vivado_project/rect_renderer.xpr;/home/dan/FPGA_Rapid_Render/components/rect_renderer/out/
 Ellipse;/home/dan/FPGA_Rapid_Render/components/ellipse_renderer/vivado_project/ellipse_renderer.xpr;/home/dan/FPGA_Rapid_Render/components/ellipse_renderer/out/
+Input;/home/dan/FPGA_Rapid_Render/components/input/vivado_project/input.xpr;/home/dan/FPGA_Rapid_Render/components/input/out/
+VGA;/home/dan/FPGA_Rapid_Render/components/VGA_output/vivado_project/VGA_output.xpr;/home/dan/FPGA_Rapid_Render/components/VGA_output/out/

@@ -23,20 +23,20 @@
 module ellipse_renderer
     (input clk,
      input program_in,
-     input [10:0] x, 
-     input [11:0] y,
-     input[31:0] data_in,
+     input [10:0] x_in, 
+     input [11:0] y_in,
+     input[11:0] data_in,
      output reg program_out,
      output reg [10:0] x_out,
      output reg [11:0] y_out,
-     output reg [31:0] data_out
+     output reg [11:0] data_out
      );
      
     reg [10:0] x_coord = 0;  //Reg_ID = 0
     reg [11:0] y_coord = 0;  //Reg_ID = 1
     reg [10:0] width_rad = 0;   //Reg_ID = 2
     reg [11:0] height_rad = 0;  //Reg_ID = 3
-    reg [31:0] color = ~0;  //Red_ID = 4 Default color = white
+    reg [11:0] color = ~0;  //Red_ID = 4 Default color = white
     
     reg [23:0] height_rad_sqrd;
     reg [23:0] translatedX_sqrd;
@@ -52,7 +52,7 @@ module ellipse_renderer
     reg program_tmp[3:0];
     reg [10:0] x_tmp[3:0];
     reg [11:0] y_tmp[3:0];
-    reg [32:0] data_tmp[3:0];
+    reg [11:0] data_tmp[3:0];
     
     reg [10:0] TranslatedX;
     reg [11:0] TranslatedY;
@@ -64,16 +64,16 @@ module ellipse_renderer
     wire inshape  = calc <= bound[1];
     
     always @(posedge clk) begin
-        TranslatedX <= x > x_coord ? x - x_coord : x_coord - x;
-        TranslatedY <= y > y_coord ? y - y_coord : y_coord - y;
+        TranslatedX <= x_in > x_coord ? x_in - x_coord : x_coord - x_in;
+        TranslatedY <= y_in > y_coord ? y_in - y_coord : y_coord - y_in;
         
         program_tmp[0] <= program_in;
         if (program_in) begin
-            x_tmp[0] <= x - 1;
+            x_tmp[0] <= x_in - 1;
        end else begin
-            x_tmp[0] <= x;
+            x_tmp[0] <= x_in;
         end
-        y_tmp[0] <= y;
+        y_tmp[0] <= y_in;
         data_tmp[0] <= data_in;
     end
                     
@@ -120,22 +120,22 @@ module ellipse_renderer
   
     //Inputs
     always @(posedge clk) begin
-        if (program_in && x == 0)
+        if (program_in && x_in == 0)
             //Change reg with ID = to y
             begin
-                if (y == 0) begin
+                if (y_in == 0) begin
                     x_coord <= data_in;
                 end
-                else if (y == 1) begin
+                else if (y_in == 1) begin
                     y_coord <= data_in;
                 end
-                else if (y == 2) begin
+                else if (y_in == 2) begin
                     width_rad <= data_in;
                 end
-                else if (y == 3) begin
+                else if (y_in == 3) begin
                     height_rad <= data_in;
                 end
-                else if (y == 4) begin
+                else if (y_in == 4) begin
                     color <= data_in;
                 end
             end

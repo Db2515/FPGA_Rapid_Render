@@ -1,5 +1,5 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
 
 
 import com.xilinx.rapidwright.design.Design;
@@ -10,17 +10,21 @@ import com.xilinx.rapidwright.edif.EDIFCellInst;
 import com.xilinx.rapidwright.edif.EDIFDirection;
 import com.xilinx.rapidwright.edif.EDIFNet;
 import com.xilinx.rapidwright.edif.EDIFPort;
-import com.xilinx.rapidwright.edif.EDIFPortInst;
 import com.xilinx.rapidwright.placer.blockplacer.BlockPlacer2;
 import com.xilinx.rapidwright.placer.handplacer.HandPlacer;
 import com.xilinx.rapidwright.router.Router;
 import com.xilinx.rapidwright.tests.CodePerfTracker;
 import com.xilinx.rapidwright.util.FileTools;
+import components.RenderComponent;
+import components.Shape;
 
 public class DottyStitcher {
 
+    private static Design design;
+
 	private static String clk = "clk";
-	
+	private static List<String> componentPorts = Arrays.asList("program", "x", "y", "data");
+
 	private static boolean HAND_PLACER_ENABLED = false;
 	private static boolean ROUTER_ENABLED = false;
 	
@@ -45,17 +49,14 @@ public class DottyStitcher {
 		return topNet;
 	}
 	
-	private static void connect(Design design, String src, String snk) {
-		String srcModuleInstName = src.substring(0, src.indexOf(':'));
-		String srcPortName = src.substring(src.indexOf(':')+1);
+	private static void connect(Design design, String srcModuleInstName, String srcPortName,
+								String snkModuleInstName, String snkPortName) {
 		ModuleInst srcModuleInst = design.getModuleInst(srcModuleInstName);
 		EDIFPort srcPort = srcModuleInst.getCellInst().getPort(srcPortName);
-		
-		String snkModuleInstName = snk.substring(0, snk.indexOf(':'));
-		String snkPortName = snk.substring(snk.indexOf(':')+1);
+
 		ModuleInst snkModuleInst = design.getModuleInst(snkModuleInstName);
 		EDIFPort snkPort = snkModuleInst.getCellInst().getPort(snkPortName);
-		
+
 		// Hopefully bus widths match, but if they don't connect only the fewer bus wires...
 		int width = snkPort.getWidth() < srcPort.getWidth() ? snkPort.getWidth() : srcPort.getWidth();
 
@@ -68,30 +69,30 @@ public class DottyStitcher {
 		}
 		
 	}
-	
-	private static void connectTopLevelPortToModule(Design design, String port, EDIFDirection dir, String modulePort) {
+
+	private static void connectTopLevelPortToModule(Design design, String topLevelPort, EDIFDirection dir,
+															String moduleInst, String modulePort) {
 
 		// Connect to the module
-		String moduleInst = modulePort.substring(0, modulePort.indexOf(':'));
-		String portName = modulePort.substring(modulePort.indexOf(':')+1).replace(";", "");
 		EDIFCellInst cellInst = design.getTopEDIFCell().getCellInst(moduleInst);
-		int width = cellInst.getPort(portName).getWidth();
+		int width = cellInst.getPort(modulePort).getWidth();
 		
 		// Get/Create port
 		
 		
 		if(width > 1) {
 			for(int i=0; i < width; i++) {
-				EDIFNet net = createOrGetTopLevelPortNet(design.getTopEDIFCell(), dir, port + "["+i+"]");
-				net.createPortInst(portName, i, cellInst);
+				EDIFNet net = createOrGetTopLevelPortNet(design.getTopEDIFCell(), dir, topLevelPort + "["+i+"]");
+				net.createPortInst(modulePort, i, cellInst);
 			}
 		}else {
-			EDIFNet net = createOrGetTopLevelPortNet(design.getTopEDIFCell(), dir, port);
-			net.createPortInst(portName, cellInst);
+			EDIFNet net = createOrGetTopLevelPortNet(design.getTopEDIFCell(), dir, topLevelPort);
+			net.createPortInst(modulePort, cellInst);
 		}
 				
 	}
-	
+
+	/*
 	public static Design createDesignFromDotty(String dotFile, String partname, Map<String,Module> modules) {
 		Design design = null;
 		for(String line : FileTools.getLinesFromTextFile(dotFile)) {
@@ -122,6 +123,125 @@ public class DottyStitcher {
 				mi.place(module.getAnchor().getSite());
 			}
 		}
+		return design;
+	}
+	*/
+
+	private static ArrayList<RenderComponent> getRenderGraphFromDotty(String dotFile, Map<String,Module> modules) {
+
+		ArrayList<RenderComponent> renderComponents = new ArrayList<>();
+		ArrayList<RenderComponent> renderGraph = new ArrayList<>();
+
+		for(String line : FileTools.getLinesFromTextFile(dotFile)) {
+			line.trim();
+			if(line.length() == 0) continue;
+			if(line.startsWith("#")) continue;
+
+			if (line.contains("label=")){
+				String[] tokens = line.trim().split("\\s+", 2);
+				String name = tokens[0];
+				String[] componentConfig = tokens[1].replace("[label=\"", "")
+												.replace("\"];", "").trim().split(",");
+				Shape shape = null;
+				short xcoord = 0;
+				short ycoord = 0;
+				short width = 0;
+				short height = 0;
+				short color = 0;
+
+				for (String config: componentConfig) {
+				    String[] paramAndValue = config.trim().split("=");
+				    switch (paramAndValue[0].trim()){
+						case "shape":
+							shape = Shape.valueOf(paramAndValue[1]);
+							break;
+						case "xcoord":
+							xcoord = Short.parseShort(paramAndValue[1]);
+							break;
+						case "ycoord":
+							ycoord = Short.parseShort(paramAndValue[1]);
+							break;
+						case "width":
+							width = Short.parseShort(paramAndValue[1]);
+							break;
+						case "height":
+							height = Short.parseShort(paramAndValue[1]);
+							break;
+						case "color":
+							color = Short.parseShort(paramAndValue[1]);
+							break;
+					}
+				}
+
+				if (shape == null){
+				    throw new NullPointerException("Shape type needed for node");
+				}
+
+				renderComponents.add(new RenderComponent(name, shape,
+														xcoord, ycoord, width, height, color));
+				Module module = modules.get(shape.name());
+				ModuleInst mi = design.createModuleInst(name, module);
+				mi.place(module.getAnchor().getSite());
+
+			} else if(line.contains("->")) {
+				String[] componentNames = line.replace(";", "").replaceAll("\\s+", "").split("->");
+				for (String name: componentNames) {
+					Stream<RenderComponent> componentStream = renderComponents.stream();
+					RenderComponent component = componentStream.filter(comp -> name.equals(comp.getName())).findAny().orElse(null);
+					if (component == null){
+						throw new NullPointerException("Component in graph that has not been declared");
+					}
+					renderGraph.add(component);
+				}
+			}
+
+		}
+		return renderGraph;
+	}
+
+	private static Design createDesignFromRenderGraph(ArrayList<RenderComponent> renderGraph) {
+		//Connect Input Module to top level ports and first component
+		//String moduleInst = "Input";
+        //connectTopLevelPortToModule(design, clk, EDIFDirection.INPUT, moduleInst, clk);
+		//connectTopLevelPortToModule(design, "serial_input", EDIFDirection.INPUT, moduleInst, "serial_input");
+		connect(design, "VGA", "VGA_LINEEND_OUT",
+				"Input", "resume");
+		String firstComponentName = renderGraph.get(0).getName();
+		for (String port:componentPorts) {
+			String scrPortName = port + "_out";
+			String snkPortName = port + "_in";
+			connect(design, "Input", scrPortName, firstComponentName, snkPortName);
+
+		}
+		int numComponents = renderGraph.size();
+		for(int i = 0; i < numComponents; i++){
+		    String currentComponentName = renderGraph.get(i).getName();
+		    //connectTopLevelPortToModule(design, clk, EDIFDirection.INPUT, currentComponentName, clk);
+		    String nextComponentName;
+			if (i == numComponents - 1){
+				// Connect output to VGA component
+				nextComponentName = "VGA";
+			} else {
+				// Connect output to next component
+				nextComponentName = renderGraph.get(i+1).getName();
+			}
+			for (String port:componentPorts) {
+			    if(nextComponentName == "VGA" && port == "y"){
+			    	continue;
+				}
+				String scrPortName = port + "_out";
+				String snkPortName = port + "_in";
+				connect(design, currentComponentName, scrPortName, nextComponentName, snkPortName);
+			}
+		}
+		//Connect VGA output to top level ports
+		//moduleInst = "VGA";
+		//connectTopLevelPortToModule(design, "VGA_HS_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_HS_OUT");
+		//connectTopLevelPortToModule(design, "VGA_VS_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_VS_OUT");
+		//connectTopLevelPortToModule(design, "VGA_R_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_R_OUT");
+		//connectTopLevelPortToModule(design, "VGA_G_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_G_OUT");
+		//connectTopLevelPortToModule(design, "VGA_B_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_B_OUT");
+
 		return design;
 	}
 	
@@ -161,7 +281,24 @@ public class DottyStitcher {
 
 		// Stitch blocks together according to Dotty Graph
 		t.stop().start("Stitch Design");
-		Design design = createDesignFromDotty(args[0], "xc7a100tcsg324-1", modules);
+		//Design design = createDesignFromDotty(args[0], "xc7a35tcpg236-1", modules);
+		//Create intermediate graph of render
+		design = new Design("Circuit", "xc7a35tcpg236-1");
+		for(Module m : modules.values()) {
+			design.getNetlist().migrateCellAndSubCells(m.getNetlist().getTopCell());
+		}
+
+		// Place input and VGA
+		Module module = modules.get("Input");
+		ModuleInst mi = design.createModuleInst("Input", module);
+		mi.place(module.getAnchor().getSite());
+
+		module = modules.get("VGA");
+		mi = design.createModuleInst("VGA", module);
+		mi.place(module.getAnchor().getSite());
+
+		ArrayList<RenderComponent> renderGraph = getRenderGraphFromDotty(args[0], modules);
+		Design design = createDesignFromRenderGraph(renderGraph);
 		
 		// Place the blocks
 		t.stop().start("Block Placer");
@@ -189,4 +326,7 @@ public class DottyStitcher {
 		design.writeCheckpoint(args[2], CodePerfTracker.SILENT);
 		t.stop().printSummary();
 	}
+
+
+
 }
