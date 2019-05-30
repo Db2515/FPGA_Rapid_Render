@@ -1,21 +1,26 @@
  digraph Circuit {
+      Input [label="Input"];
       Shape0 [label="Rectangle .width(1080), .height(1080)"];
       Shape1 [label="Ellipse .color(FF0000FF), .x_coord(540), .y_coord(540), .width(540), .height(540)"];
       Shape2 [label="Ellipse .color(FF00FFFF), .x_coord(540), .y_coord(540), .width(270), .height(270)"];
-
+      VGA [label="VGA"];
+      
+      clk -> Input:clk;	#Don't want circuit info every shape needs clock
       clk -> Shape0:clk;
       clk -> Shape1:clk;
       clk -> Shape2:clk;
+      clk -> VGA:CLK;
 
-      program -> Shape0:program_in;
-      x -> Shape0:x;
-      y -> Shape0:y;
-      data -> Shape0:data_in;
+      serial_input -> Input:serial_input;
 
-      Shape2:program_out -> program_out;
-      Shape2:x_out -> x_out;
-      Shape2:y_out -> y_out;
-      Shape2:data_out -> data_out;
+      rst -> VGA:RST;
+      
+      VGA:VGA_LINEEND_OUT -> Input:resume;
+
+      Input:program_out -> Shape0:program_in;
+      Input:x_out -> Shape0:x;
+      Input:y_out -> Shape0:y;
+      Input:data_out -> Shape0:data_in;
  
       Shape0:program_out -> Shape1:program_in;
       Shape0:x_out -> Shape1:x
@@ -23,9 +28,19 @@
       Shape0:data_out -> Shape1:data_in
 
       Shape1:program_out -> Shape2:program_in;
-      Shape1:x_out -> Shape2:x
-      Shape1:y_out -> Shape2:y
-      Shape1:data_out -> Shape2:data_in
+      Shape1:x_out -> Shape2:x;
+      Shape1:y_out -> Shape2:y;
+      Shape1:data_out -> Shape2:data_in;
+
+      Shape2:program_out -> VGA:program_in;
+      Shape2:x_out -> VGA:x;
+      Shape2:data_out -> VGA:data_in;
+
+      VGA:VGA_HS_OUT -> hs_out;
+      VGA:VGA_VS_OUT -> vs_out;
+      VGA:VGA_R -> r_out;
+      VGA:VGA_G -> g_out;
+      VGA:VGA_B -> b_out;
 
  
 }
