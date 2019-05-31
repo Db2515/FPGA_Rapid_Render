@@ -20,6 +20,6 @@ place_design
 route_design
 
 # Gen Bitstream
-# TODO Need constraints file first
+write_bitstream -force tmp.bit
 
 close_project
