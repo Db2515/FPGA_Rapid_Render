@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -27,6 +28,7 @@ public class DottyStitcher {
 
 	private static boolean HAND_PLACER_ENABLED = false;
 	private static boolean ROUTER_ENABLED = false;
+	private static boolean WRITE_BITSTREAM = false;
 	
 	/**
 	 * Creates a top level port in the netlist (like 'Clock') and connects it to
@@ -257,12 +259,14 @@ public class DottyStitcher {
 		return module;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		if(args.length != 3) {
 			System.out.println("USAGE: <dot file> <components list file> <output.dcp>");
 			return;
 		}
-		
+
+		RenderConfigurator configurator = new RenderConfigurator();
+
 		CodePerfTracker t = new CodePerfTracker("Dotty Graph Design Stitcher");
 		
 		t.start("Reading Module DCPs");
@@ -325,6 +329,14 @@ public class DottyStitcher {
 		design.setDesignOutOfContext(true);
 		design.writeCheckpoint(args[2], CodePerfTracker.SILENT);
 		t.stop().printSummary();
+
+		if(WRITE_BITSTREAM) {
+			String[] command = new String[] {"vivado -mode batch -source route_and_writebitstream.tcl -tclargs", args[2], " ",
+												ROUTER_ENABLED ? "1" : "0"};
+			Process proc = new ProcessBuilder(command).start();
+		}
+
+		RenderConfigurator.configure(renderGraph);
 	}
 
 
