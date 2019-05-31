@@ -75,7 +75,7 @@ module input_manager(input wire clk,
         end else begin
             x_out <= x;
             y_out <= y;
-            data_out <= 'h000;
+            data_out <= 'hF0F;
         end   
     end
      

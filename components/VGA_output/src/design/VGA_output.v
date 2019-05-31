@@ -23,7 +23,7 @@
 module VGA_output(input wire CLK,               // Base clock
                   input wire RST,               // Reset: restarts frame
                   input wire program_in,
-                  input wire [9:0] x_in,
+                  input wire [11:0] x_in,
                   input wire [11:0] data_in,
                   output wire VGA_HS_OUT,       // Horizontal sync output
                   output wire VGA_VS_OUT,       // Vertical sync output

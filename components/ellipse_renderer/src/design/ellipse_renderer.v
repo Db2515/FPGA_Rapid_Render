@@ -23,18 +23,18 @@
 module ellipse_renderer
     (input clk,
      input program_in,
-     input [10:0] x_in, 
+     input [11:0] x_in, 
      input [11:0] y_in,
      input[11:0] data_in,
      output reg program_out,
-     output reg [10:0] x_out,
+     output reg [11:0] x_out,
      output reg [11:0] y_out,
      output reg [11:0] data_out
      );
      
-    reg [10:0] x_coord = 0;  //Reg_ID = 0
+    reg [11:0] x_coord = 0;  //Reg_ID = 0
     reg [11:0] y_coord = 0;  //Reg_ID = 1
-    reg [10:0] width_rad = 0;   //Reg_ID = 2
+    reg [11:0] width_rad = 0;   //Reg_ID = 2
     reg [11:0] height_rad = 0;  //Reg_ID = 3
     reg [11:0] color = ~0;  //Red_ID = 4 Default color = white
     

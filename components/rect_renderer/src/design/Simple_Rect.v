@@ -1,16 +1,16 @@
 module rect_renderer
     (input clk,
      input program_in,
-     input [10:0] x_in, 
+     input [11:0] x_in, 
      input [11:0] y_in,
      input[11:0] data_in,
      output reg program_out,
-     output reg [10:0] x_out,
+     output reg [11:0] x_out,
      output reg [11:0] y_out,
      output reg [11:0] data_out
      );
 
-    reg [10:0] xcoord = 0;  //Reg_ID = 0
+    reg [11:0] xcoord = 0;  //Reg_ID = 0
     reg [11:0] ycoord = 0;  //Reg_ID = 1
     reg [10:0] width = 0;   //Reg_ID = 2
     reg [11:0] height = 0;  //Reg_ID = 3
