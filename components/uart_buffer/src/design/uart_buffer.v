@@ -13,12 +13,12 @@
   
 module uart_buffer 
   (
-   input clk,
-   input Serial_input,
-   output program_out,
-   output [10:0] shape_addr,
-   output [11:0] reg_addr,
-   output [11:0] data
+   input wire clk,
+   input wire Serial_input,
+   output wire program_out,
+   output wire [11:0] shape_addr,
+   output wire [11:0] reg_addr,
+   output wire [11:0] data
    );
   
   parameter CLKS_PER_BIT = 100;  
@@ -33,9 +33,9 @@ module uart_buffer
   reg           r_Rx_Data_R = 1'b1;
   reg           r_Rx_Data   = 1'b1;
    
-  parameter PACKAGE_SIZE                = 35; 
+  parameter PACKAGE_SIZE                = 40; 
   reg [7:0] r_Clock_Count               = 0;
-  reg [5:0] r_Bit_Index                 = 0; //35 bits total
+  reg [5:0] r_Bit_Index                 = 0; //36 bits total
   reg [PACKAGE_SIZE - 1:0] r_Rx_Package = 0;
   reg r_Program                         = 0;
   reg [2:0] r_SM_Main                   = 0; //Current state machine node     
@@ -149,8 +149,8 @@ module uart_buffer
     end   
    
   assign program_out   = r_Program;
-  assign shape_addr = r_Rx_Package[10:0];
-  assign reg_addr = r_Rx_Package[22:11];
-  assign data = r_Rx_Package[34:23];
+  assign shape_addr = r_Rx_Package[11:0];
+  assign reg_addr = r_Rx_Package[23:12];
+  assign data = r_Rx_Package[35:24];
    
 endmodule // uart_rx
