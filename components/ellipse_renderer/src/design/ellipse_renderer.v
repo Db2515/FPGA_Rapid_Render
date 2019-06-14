@@ -50,7 +50,7 @@ module ellipse_renderer
     reg [47:0] bound[1:0];
     
     reg program_tmp[3:0];
-    reg [10:0] x_tmp[3:0];
+    reg [11:0] x_tmp[3:0];
     reg [11:0] y_tmp[3:0];
     reg [11:0] data_tmp[3:0];
     

@@ -23,11 +23,11 @@
 module input_manager(input wire clk,
                         input wire resume,
                         input wire program_in,
-                        input wire [10:0] shape_addr,
+                        input wire [11:0] shape_addr,
                         input wire [11:0] reg_addr,
                         input wire [11:0] data_in,
                         output reg program_out,
-                        output reg [10:0] x_out,
+                        output reg [11:0] x_out,
                         output reg [11:0] y_out,
                         output reg [11:0] data_out
     );
@@ -35,7 +35,7 @@ module input_manager(input wire clk,
     localparam SCREEN_WIDTH = 1024;
     localparam SCREEN_HEIGHT = 768;
     
-    reg [10:0] x = 0;
+    reg [11:0] x = 0;
     reg [11:0] y = 0;
     reg paused = 0;
    

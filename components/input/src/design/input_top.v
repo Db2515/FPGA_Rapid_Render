@@ -24,13 +24,13 @@ module input_top(input wire clk,
    input wire serial_input,
    input wire resume,
    output wire program_out,
-   output wire [10:0] x_out,
+   output wire [11:0] x_out,
    output wire [11:0] y_out,
    output wire [11:0] data_out
 );
 
     wire program;
-    wire [10:0] shape_addr;
+    wire [11:0] shape_addr;
     wire [11:0] reg_addr;
     wire [11:0] data;
     

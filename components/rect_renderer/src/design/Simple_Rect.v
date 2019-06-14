@@ -12,7 +12,7 @@ module rect_renderer
 
     reg [11:0] xcoord = 0;  //Reg_ID = 0
     reg [11:0] ycoord = 0;  //Reg_ID = 1
-    reg [10:0] width = 0;   //Reg_ID = 2
+    reg [11:0] width = 0;   //Reg_ID = 2
     reg [11:0] height = 0;  //Reg_ID = 3
     reg [11:0] color = ~0;  //Red_ID = 4 Default color = white
     
