@@ -1,11 +1,10 @@
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Stream;
 
 
-import com.xilinx.rapidwright.design.Design;
-import com.xilinx.rapidwright.design.Module;
-import com.xilinx.rapidwright.design.ModuleInst;
+import com.xilinx.rapidwright.design.*;
 import com.xilinx.rapidwright.edif.EDIFCell;
 import com.xilinx.rapidwright.edif.EDIFCellInst;
 import com.xilinx.rapidwright.edif.EDIFDirection;
@@ -23,12 +22,13 @@ public class DottyStitcher {
 
     private static Design design;
 
-	private static String clk = "clk";
+	//private static String clk = "clk";
 	private static List<String> componentPorts = Arrays.asList("program", "x", "y", "data");
 
 	private static boolean HAND_PLACER_ENABLED = false;
 	private static boolean ROUTER_ENABLED = false;
 	private static boolean WRITE_BITSTREAM = false;
+	private static boolean WRITE_TO_HARDWARE = false;
 	
 	/**
 	 * Creates a top level port in the netlist (like 'Clock') and connects it to
@@ -50,7 +50,8 @@ public class DottyStitcher {
 		}		
 		return topNet;
 	}
-	
+
+
 	private static void connect(Design design, String srcModuleInstName, String srcPortName,
 								String snkModuleInstName, String snkPortName) {
 		ModuleInst srcModuleInst = design.getModuleInst(srcModuleInstName);
@@ -60,12 +61,19 @@ public class DottyStitcher {
 		EDIFPort snkPort = snkModuleInst.getCellInst().getPort(snkPortName);
 
 		// Hopefully bus widths match, but if they don't connect only the fewer bus wires...
-		int width = snkPort.getWidth() < srcPort.getWidth() ? snkPort.getWidth() : srcPort.getWidth();
+		int snkWidth = snkPort.getWidth();
+		int srcWidth = srcPort.getWidth();
+		int width = snkWidth < srcWidth ? snkPort.getWidth() : srcPort.getWidth();
 
 		if(width == 1){
 			srcModuleInst.connect(srcPortName, snkModuleInst, snkPortName, -1);
 		} else {
+			// For VGA at this resolution the x is optiminsed down to 10
+		    if (snkModuleInstName.equals("VGA") && snkPortName.equals("x_in")) {
+					width = 10;
+		    }
 			for (int i = 0; i < width; i++) {
+
 				srcModuleInst.connect(srcPortName, snkModuleInst, snkPortName, i);
 			}
 		}
@@ -203,9 +211,18 @@ public class DottyStitcher {
 
 	private static Design createDesignFromRenderGraph(ArrayList<RenderComponent> renderGraph) {
 		//Connect Input Module to top level ports and first component
-		//String moduleInst = "Input";
-        //connectTopLevelPortToModule(design, clk, EDIFDirection.INPUT, moduleInst, clk);
-		//connectTopLevelPortToModule(design, "serial_input", EDIFDirection.INPUT, moduleInst, "serial_input");
+		// Create clk IOB
+        Cell clk = design.createAndPlaceIOB("clk", PinType.IN, "W5", "LVCMOS33");
+		Net clkNet = design.createNet("clk_IBUF");
+		clkNet.connect(clk, "O");
+
+		String moduleInst = "Input";
+
+		ModuleInst inputModuleInst = design.getModuleInst("Input");
+		Port  inputClkPort = inputModuleInst.getPort("clk");
+		clkNet.addPin(inputModuleInst.getCorrespondingPin(inputClkPort));
+
+		connectTopLevelPortToModule(design, "serial_input", EDIFDirection.INPUT, moduleInst, "serial_input");
 		connect(design, "VGA", "VGA_LINEEND_OUT",
 				"Input", "resume");
 		String firstComponentName = renderGraph.get(0).getName();
@@ -218,7 +235,10 @@ public class DottyStitcher {
 		int numComponents = renderGraph.size();
 		for(int i = 0; i < numComponents; i++){
 		    String currentComponentName = renderGraph.get(i).getName();
-		    //connectTopLevelPortToModule(design, clk, EDIFDirection.INPUT, currentComponentName, clk);
+		    ModuleInst currCompModuleInst = design.getModuleInst(currentComponentName);
+			Port  currCompClkPort = currCompModuleInst.getPort("clk");
+			clkNet.addPin(inputModuleInst.getCorrespondingPin(currCompClkPort));
+
 		    String nextComponentName;
 			if (i == numComponents - 1){
 				// Connect output to VGA component
@@ -237,12 +257,18 @@ public class DottyStitcher {
 			}
 		}
 		//Connect VGA output to top level ports
-		//moduleInst = "VGA";
-		//connectTopLevelPortToModule(design, "VGA_HS_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_HS_OUT");
-		//connectTopLevelPortToModule(design, "VGA_VS_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_VS_OUT");
-		//connectTopLevelPortToModule(design, "VGA_R_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_R_OUT");
-		//connectTopLevelPortToModule(design, "VGA_G_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_G_OUT");
-		//connectTopLevelPortToModule(design, "VGA_B_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_B_OUT");
+		moduleInst = "VGA";
+
+		ModuleInst vgaModuleInst = design.getModuleInst(moduleInst);
+		Port  vgaClkPort = vgaModuleInst.getPort("CLK");
+		clkNet.addPin(inputModuleInst.getCorrespondingPin(vgaClkPort));
+
+		connectTopLevelPortToModule(design, "rst", EDIFDirection.INPUT, moduleInst, "RST");
+		connectTopLevelPortToModule(design, "VGA_HS_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_HS_OUT");
+		connectTopLevelPortToModule(design, "VGA_VS_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_VS_OUT");
+		connectTopLevelPortToModule(design, "VGA_R_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_R_OUT");
+		connectTopLevelPortToModule(design, "VGA_G_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_G_OUT");
+		connectTopLevelPortToModule(design, "VGA_B_OUT", EDIFDirection.OUTPUT, moduleInst, "VGA_B_OUT");
 
 		return design;
 	}
@@ -265,7 +291,7 @@ public class DottyStitcher {
 			return;
 		}
 
-		RenderConfigurator configurator = new RenderConfigurator();
+		//RenderConfigurator configurator = new RenderConfigurator();
 
 		CodePerfTracker t = new CodePerfTracker("Dotty Graph Design Stitcher");
 		
@@ -327,16 +353,22 @@ public class DottyStitcher {
 		t.stop().start("Write output DCP");
 		design.setAutoIOBuffers(false);
 		design.setDesignOutOfContext(true);
-		design.writeCheckpoint(args[2], CodePerfTracker.SILENT);
+		design.writeCheckpoint(args[2].concat("/output.dcp"), CodePerfTracker.SILENT);
 		t.stop().printSummary();
 
 		if(WRITE_BITSTREAM) {
-			String[] command = new String[] {"vivado -mode batch -source route_and_writebitstream.tcl -tclargs", args[2], " ",
-												ROUTER_ENABLED ? "1" : "0"};
-			Process proc = new ProcessBuilder(command).start();
+			String[] command = new String[] {"bash vivado -mode batch -source route_and_writebitstream.tcl -tclargs", args[2], " ",
+												!ROUTER_ENABLED ? "1" : "0", WRITE_TO_HARDWARE ? "1" : "0"};
+			Runtime.getRuntime().exec(command);
+			for(String line: FileTools.getLinesFromTextFile("vivado.log")){
+				if(line.contains("route_design: Time (s)") || line.contains("write_bitstream: Time (s):")){
+					String[] tokens = line.split(" ");
+					System.out.println(tokens[0] + " " + tokens[5]);
+				}
+			}
 		}
 
-		RenderConfigurator.configure(renderGraph);
+		//RenderConfigurator.configure(renderGraph);
 	}
 
 
